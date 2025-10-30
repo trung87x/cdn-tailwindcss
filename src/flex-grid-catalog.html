@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox & Grid Catalog — Tailwind CDN</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        --color-brand: oklch(0.63 0.19 252);
+        --radius-xl: 1rem;
+      }
+      @layer utilities {
+        .card {
+          @apply rounded-xl bg-white shadow p-4;
+        }
+        .chip {
+          @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600;
+        }
+      }
+    </style>
+  </head>
+
+  <!-- Grid areas layout: header | main | footer (footer "sticky" by grid rows) -->
+  <body
+    class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased"
+  >
+    <header
+      class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
+    >
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-xl md:text-2xl font-bold">Flexbox & Grid Catalog</h1>
+        <nav class="hidden sm:flex gap-4">
+          <a href="#flex" class="text-gray-600 hover:text-brand">Flexbox</a>
+          <a href="#grid-gallery" class="text-gray-600 hover:text-brand"
+            >Grid Gallery</a
+          >
+          <a href="#align" class="text-gray-600 hover:text-brand"
+            >Justify/Align/Place</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="py-8">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+        <!-- 1) FLEXBOX CATALOG -->
+        <section id="flex">
+          <header class="mb-6">
+            <h2 class="text-2xl font-bold">1) Flexbox</h2>
+            <p class="text-sm text-gray-600">
+              basis • direction/wrap • flex • grow/shrink • order
+            </p>
+          </header>
+
+          <!-- basis + direction/wrap -->
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold">basis / direction / wrap</h3>
+              <div class="hidden md:flex gap-2">
+                <span class="chip">flex-row</span>
+                <span class="chip">flex-wrap</span>
+                <span class="chip">basis-1/2</span>
+                <span class="chip">basis-[320px]</span>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-row flex-wrap gap-4">
+              <div
+                class="basis-1/2 min-w-[16rem] grow rounded-lg bg-indigo-50 p-4"
+              >
+                <p class="text-sm font-medium">Box A</p>
+                <p class="text-xs text-gray-600">basis-1/2 + grow (co giãn)</p>
+              </div>
+              <div class="basis-[320px] shrink-0 rounded-lg bg-purple-50 p-4">
+                <p class="text-sm font-medium">Box B</p>
+                <p class="text-xs text-gray-600">
+                  basis-[320px] + shrink-0 (không co lại)
+                </p>
+              </div>
+              <div class="basis-1/2 min-w-[12rem] rounded-lg bg-emerald-50 p-4">
+                <p class="text-sm font-medium">Box C</p>
+                <p class="text-xs text-gray-600">basis-1/2 (tỉ lệ nền)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- flex shorthand + grow/shrink + order -->
+          <div class="card mt-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold">
+                flex shorthand / grow / shrink / order
+              </h3>
+              <div class="hidden md:flex gap-2">
+                <span class="chip">flex-1</span>
+                <span class="chip">flex-[2_2_0%]</span>
+                <span class="chip">grow</span>
+                <span class="chip">shrink-0</span>
+                <span class="chip">order-1</span>
+                <span class="chip">order-[999]</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-col md:flex-row gap-4">
+              <div class="flex-1 order-2 md:order-1 rounded-lg bg-amber-50 p-4">
+                <p class="text-sm font-medium">Item 1 (flex-1)</p>
+                <p class="text-xs text-gray-600">
+                  Lấy phần còn lại, chuyển order theo breakpoint.
+                </p>
+              </div>
+              <div
+                class="flex-[2_2_0%] order-[999] md:order-2 rounded-lg bg-rose-50 p-4"
+              >
+                <p class="text-sm font-medium">Item 2 (flex-[2_2_0%])</p>
+                <p class="text-xs text-gray-600">
+                  grow:2; shrink:2; basis:0% — chiếm rộng hơn.
+                </p>
+              </div>
+              <div
+                class="shrink-0 order-1 md:order-3 rounded-lg bg-sky-50 p-4 min-w-40"
+              >
+                <p class="text-sm font-medium">Item 3 (shrink-0)</p>
+                <p class="text-xs text-gray-600">
+                  Không co nhỏ lại, luôn giữ kích thước min.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) GRID GALLERY -->
+        <section id="grid-gallery">
+          <header class="mb-6">
+            <h2 class="text-2xl font-bold">2) Grid Gallery</h2>
+            <p class="text-sm text-gray-600">
+              grid templates • line placement • auto-flow/cols/rows • gap
+            </p>
+          </header>
+
+          <!-- Grid templates + line placement -->
+          <div class="card">
+            <h3 class="font-semibold">Grid templates + line placement</h3>
+            <p class="text-xs text-gray-600">
+              grid-cols-3 • col-span-2 • col-start-2 col-end-4 • row-span-3
+            </p>
+
+            <div class="mt-4 grid grid-cols-3 auto-rows-[10rem] gap-4">
+              <!-- Featured item spanning -->
+              <figure
+                class="relative col-span-2 row-span-2 overflow-hidden rounded-lg"
+              >
+                <img
+                  class="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1400&auto=format&fit=crop"
+                  alt="Featured"
+                />
+                <figcaption
+                  class="absolute inset-x-0 bottom-0 bg-black/40 text-white p-2 text-sm"
+                >
+                  col-span-2 · row-span-2
+                </figcaption>
+              </figure>
+
+              <!-- Exact line placement (start/end) -->
+              <figure
+                class="relative col-start-2 col-end-4 row-start-3 overflow-hidden rounded-lg"
+              >
+                <img
+                  class="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=1400&auto=format&fit=crop"
+                  alt="Line placed"
+                />
+                <figcaption
+                  class="absolute inset-x-0 bottom-0 bg-black/40 text-white p-2 text-sm"
+                >
+                  col-start-2 · col-end-4
+                </figcaption>
+              </figure>
+
+              <!-- Fillers -->
+              <figure class="relative overflow-hidden rounded-lg">
+                <img
+                  class="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1400&auto=format&fit=crop"
+                  alt="Img"
+                />
+              </figure>
+              <figure class="relative overflow-hidden rounded-lg">
+                <img
+                  class="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1400&auto=format&fit=crop"
+                  alt="Img"
+                />
+              </figure>
+              <figure class="relative overflow-hidden rounded-lg">
+                <img
+                  class="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop"
+                  alt="Img"
+                />
+              </figure>
+            </div>
+          </div>
+
+          <!-- Auto-flow / auto-cols / auto-rows + horizontal flow demo -->
+          <div class="card mt-6">
+            <h3 class="font-semibold">Auto-flow / auto-cols / auto-rows</h3>
+            <p class="text-xs text-gray-600">
+              grid-flow-col • auto-cols-fr • auto-rows-min • gap-x-4 gap-y-2
+            </p>
+
+            <!-- Horizontal auto-flow grid (scrollable) -->
+            <div class="mt-4 overflow-x-auto">
+              <div
+                class="grid grid-flow-col auto-cols-fr auto-rows-min gap-x-4 gap-y-2 min-w-[64rem]"
+              >
+                <!-- Repeatable items -->
+                <div
+                  class="h-40 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">grid-flow-col</span>
+                  <p class="text-sm">Item A — auto-cols-fr</p>
+                </div>
+                <div
+                  class="h-28 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">auto-rows-min</span>
+                  <p class="text-sm">Item B</p>
+                </div>
+                <div
+                  class="h-56 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">gap-x-4</span>
+                  <p class="text-sm">Item C</p>
+                </div>
+                <div
+                  class="h-32 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">gap-y-2</span>
+                  <p class="text-sm">Item D</p>
+                </div>
+                <div
+                  class="h-44 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">auto-cols-fr</span>
+                  <p class="text-sm">Item E</p>
+                </div>
+                <div
+                  class="h-24 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                >
+                  <span class="chip">min content</span>
+                  <p class="text-sm">Item F</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3) JUSTIFY / ALIGN / PLACE -->
+        <section id="align">
+          <header class="mb-6">
+            <h2 class="text-2xl font-bold">3) Justify / Align / Place</h2>
+            <p class="text-sm text-gray-600">
+              justify-*, align-*, place-* • items/content/self •
+              justify-items/self
+            </p>
+          </header>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Flex alignment -->
+            <div class="card">
+              <h3 class="font-semibold">Flex alignment</h3>
+              <p class="text-xs text-gray-600">
+                justify-center • items-center • content-between • self-start
+              </p>
+
+              <div
+                class="mt-4 h-40 flex flex-wrap content-between justify-center items-center gap-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3"
+              >
+                <span class="chip self-start">self-start</span>
+                <span class="chip">center</span>
+                <span class="chip">between</span>
+                <span class="chip">center</span>
+              </div>
+            </div>
+
+            <!-- Grid alignment -->
+            <div class="card">
+              <h3 class="font-semibold">Grid alignment</h3>
+              <p class="text-xs text-gray-600">
+                justify-items-stretch • justify-self-end • place-content-center
+                • place-items-start • place-self-center
+              </p>
+
+              <div
+                class="mt-4 grid grid-cols-3 gap-3 h-40 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3 place-content-center place-items-start"
+              >
+                <div
+                  class="h-10 w-full bg-white rounded shadow flex items-center justify-center text-xs"
+                >
+                  stretch
+                </div>
+                <div
+                  class="h-10 w-auto bg-white rounded shadow px-2 grid place-items-center text-xs justify-self-end"
+                >
+                  self-end
+                </div>
+                <div
+                  class="h-10 w-16 bg-white rounded shadow grid place-items-center text-xs place-self-center"
+                >
+                  place-self-center
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500"
+      >
+        <p>
+          Layout tổng thể dùng <code>grid-rows-[auto_1fr_auto]</code> để giữ
+          footer ở đáy (sticky-by-layout).
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

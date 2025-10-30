@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spacing & Sizing Playground — Tailwind CDN</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        --radius-xl: 1rem;
+        --color-brand: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card {
+          @apply rounded-xl bg-white shadow p-6;
+        }
+        .two-lines {
+          @apply [display:-webkit-box] [overflow:hidden] [text-overflow:ellipsis] [-webkit-line-clamp:2] [-webkit-box-orient:vertical];
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased"
+  >
+    <header
+      class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
+    >
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-xl md:text-2xl font-bold">
+          3) Spacing &amp; Sizing Playground
+        </h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#card" class="text-gray-600 hover:text-brand"
+            >Card responsive</a
+          >
+          <a href="#tokens" class="text-gray-600 hover:text-brand">Checklist</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="py-8">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="card">
+          <header class="mb-4">
+            <h2 class="text-2xl font-bold">
+              Thẻ sản phẩm (container co giãn, tiêu đề hai dòng)
+            </h2>
+            <p class="text-sm text-gray-600">
+              Minh hoạ: <code>p-6</code>, <code>px-4</code>,
+              <code>pt-[3.5rem]</code>, <code>mx-auto</code>,
+              <code>-mt-2</code>, <code>mb-[2ch]</code>, <code>w-64</code>,
+              <code>min-w-0</code>, <code>max-w-2xl</code>,
+              <code>w-[min(50vw,40rem)]</code>, <code>h-10</code>,
+              <code>min-h-[50svh]</code>, <code>max-h-96</code>.
+            </p>
+          </header>
+
+          <div class="mx-auto max-w-2xl w-[min(50vw,40rem)]">
+            <article class="card px-4 pt-[3.5rem]">
+              <div
+                class="-mt-2 mb-[2ch] inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700"
+              >
+                MỚI
+                <span
+                  class="inline-block h-2 w-2 rounded-full bg-emerald-500"
+                ></span>
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="overflow-hidden rounded-lg">
+                  <div class="aspect-square max-h-96">
+                    <img
+                      class="h-full w-full object-cover"
+                      src="https://images.unsplash.com/photo-1520975922284-5f5733653c0e?q=80&w=1200&auto=format&fit=crop"
+                      alt="Sản phẩm"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="min-w-0 flex flex-col">
+                  <h3 class="two-lines text-lg font-semibold">
+                    Tai nghe không dây chống ồn thế hệ mới — pin 40 giờ, sạc
+                    nhanh, Bluetooth đa điểm cho công việc và giải trí
+                  </h3>
+
+                  <div class="mt-2 flex items-center gap-3">
+                    <p class="text-xl font-bold text-gray-900">2.890.000₫</p>
+                    <div
+                      class="flex items-center gap-1 text-amber-500 text-sm"
+                      aria-label="4.7/5"
+                    >
+                      <span>★</span><span>★</span><span>★</span><span>★</span
+                      ><span class="text-gray-300">★</span>
+                    </div>
+                  </div>
+
+                  <p
+                    class="mt-3 text-sm text-gray-600 [overflow:auto] max-h-96"
+                  >
+                    Âm thanh trong trẻo, micro khử ồn AI, chuẩn chống nước IPX4.
+                    Hỗ trợ codec AAC/LDAC, ứng dụng tùy chỉnh EQ. Kèm hộp sạc
+                    USB‑C, cáp 20cm, 3 cỡ eartips.
+                  </p>
+
+                  <div class="mt-4 grid grid-cols-2 gap-3">
+                    <button
+                      class="h-10 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm"
+                    >
+                      Xem chi tiết
+                    </button>
+                    <button
+                      class="h-10 rounded-lg bg-black text-white hover:bg-gray-900 text-sm"
+                    >
+                      Thêm vào giỏ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="mx-auto mt-8 max-w-2xl w-[min(50vw,40rem)]">
+            <div
+              class="rounded-xl border bg-white p-6 min-h-[50svh] grid place-items-center"
+            >
+              <p class="text-sm text-gray-600 text-center">
+                Khối này dùng <code>min-h-[50svh]</code> để an toàn trên mobile
+                (tránh thanh URL co giãn).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tokens">
+          <header class="mb-3">
+            <h2 class="text-xl font-bold">Checklist (đang dùng trong trang)</h2>
+          </header>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-lg bg-white p-4 shadow">
+              <p class="font-medium">Padding</p>
+              <ul class="mt-2 list-disc pl-6 space-y-1">
+                <li><code>p-6</code></li>
+                <li><code>px-4</code></li>
+                <li><code>pt-[3.5rem]</code></li>
+              </ul>
+            </div>
+            <div class="rounded-lg bg-white p-4 shadow">
+              <p class="font-medium">Margin</p>
+              <ul class="mt-2 list-disc pl-6 space-y-1">
+                <li><code>m-0</code></li>
+                <li><code>mx-auto</code></li>
+                <li><code>-mt-2</code></li>
+                <li><code>mb-[2ch]</code></li>
+              </ul>
+            </div>
+            <div class="rounded-lg bg-white p-4 shadow">
+              <p class="font-medium">Width</p>
+              <ul class="mt-2 list-disc pl-6 space-y-1">
+                <li><code>w-64</code></li>
+                <li><code>min-w-0</code></li>
+                <li><code>max-w-2xl</code></li>
+                <li><code>w-[min(50vw,40rem)]</code></li>
+              </ul>
+            </div>
+            <div class="rounded-lg bg-white p-4 shadow">
+              <p class="font-medium">Height</p>
+              <ul class="mt-2 list-disc pl-6 space-y-1">
+                <li><code>h-10</code></li>
+                <li><code>min-h-[50svh]</code></li>
+                <li><code>max-h-96</code></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500"
+      >
+        <p>
+          Spacing &amp; Sizing “an toàn” với Tailwind CDN — dùng
+          <code>svh</code>, clamp 2 dòng bằng arbitrary properties, và container
+          co giãn.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
