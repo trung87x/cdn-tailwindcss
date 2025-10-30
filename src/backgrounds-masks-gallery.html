@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backgrounds & Masks Gallery — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tokens + helpers -->
+    <style type="text/tailwindcss">
+      @theme {
+        --font-display: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial;
+        --color-brand-50: oklch(0.97 0.02 252);
+        --color-brand-500: oklch(0.67 0.19 252);
+        --color-brand-600: oklch(0.63 0.19 252);
+      }
+
+      @layer utilities {
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .chip { @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600; }
+        .gradient-text { @apply bg-clip-text text-transparent bg-gradient-to-r from-[color:var(--color-brand-500)] to-purple-500; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- HERO with gradient text and background attachment demos -->
+    <header class="relative overflow-hidden">
+      <!-- Parallax-ish fixed background -->
+      <div class="absolute inset-0 -z-10 bg-fixed bg-cover bg-center"
+           style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1920&auto=format&fit=crop');"></div>
+
+      <!-- Tinted overlay using brand color -->
+      <div class="absolute inset-0 -z-[9] bg-[color:var(--color-brand-50)]/60"></div>
+
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <h1 class="font-[var(--font-display)] text-4xl md:text-6xl gradient-text text-balance">
+          5) Backgrounds &amp; Masks Gallery
+        </h1>
+        <p class="mt-3 max-w-2xl text-gray-700 text-pretty">
+          Mục tiêu: nền, gradient, clip, mask &mdash; từ <code>bg-fixed</code> đến <code>mask-image</code>.
+        </p>
+
+        <!-- Local scrolling panel to contrast with fixed bg -->
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div class="card bg-local max-h-48 overflow-auto">
+            <p class="text-sm text-gray-600">
+              Panel này cuộn <strong>local</strong> (khác với background thân trang đang <code>bg-fixed</code>).
+              Thêm ví dụ <code>bg-clip-padding</code> với nền nhạt.
+            </p>
+            <div class="mt-3 rounded-lg border-4 border-transparent bg-gray-100 p-4 bg-clip-padding">
+              <span class="chip">bg-clip-padding</span>
+              <p class="mt-2 text-sm">Nền chỉ tô đến mép padding, phần viền không bị tô.</p>
+              <div class="h-40"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="text-sm text-gray-600">
+              Text gradient dùng <code>bg-clip-text</code> + <code>text-transparent</code>.
+            </p>
+            <p class="mt-2 text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500">
+              Brand gradient heading — clip to text
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- Background Image / Origin / Position / Repeat / Size -->
+        <section id="bg-controls" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Background controls</h2>
+            <p class="text-sm text-gray-600">image • origin • position • repeat • size</p>
+          </header>
+
+          <!-- Use data-URI tiny dots to ensure it works offline -->
+          <div class="card">
+            <div class="grid lg:grid-cols-3 gap-4">
+              <!-- origin + size + repeat-x -->
+              <div class="rounded-lg border p-4 bg-origin-border bg-repeat-x bg-[length:200%_100%]"
+                   class="">
+                <div class="h-28 rounded bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 16 16%22><circle cx=%228%22 cy=%228%22 r=%222%22 fill=%22%23999%22/></svg>')] bg-no-repeat bg-[left_2rem_top_1rem]">
+                </div>
+                <div class="mt-2 space-x-2">
+                  <span class="chip">bg-origin-border</span>
+                  <span class="chip">bg-repeat-x</span>
+                  <span class="chip">bg-[length:200%_100%]</span>
+                  <span class="chip">bg-[left_2rem_top_1rem]</span>
+                </div>
+              </div>
+
+              <!-- center + cover + none -->
+              <div class="rounded-lg border p-4">
+                <div class="h-28 rounded bg-center bg-cover bg-no-repeat"
+                     style="background-image:url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop');">
+                </div>
+                <div class="mt-2 space-x-2">
+                  <span class="chip">bg-center</span>
+                  <span class="chip">bg-cover</span>
+                  <span class="chip">bg-no-repeat</span>
+                </div>
+              </div>
+
+              <!-- none + brand bg -->
+              <div class="rounded-lg border p-4">
+                <div class="h-28 rounded bg-none bg-[color:var(--color-brand-50)]"></div>
+                <div class="mt-2 space-x-2">
+                  <span class="chip">bg-none</span>
+                  <span class="chip">bg-[var(--color-brand-50)]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MASKS -->
+        <section id="masks" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Masks</h2>
+            <p class="text-sm text-gray-600">Arbitrary properties: <code>[mask-image:…]</code> • <code>[mask-type:luminance]</code></p>
+          </header>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Card masked fade (bottom) -->
+            <article class="card overflow-hidden">
+              <figure class="relative rounded-lg overflow-hidden">
+                <img class="h-64 w-full object-cover"
+                     src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1600&auto=format&fit=crop"
+                     alt="Mask fade" />
+                <!-- bottom fade using mask-image gradient -->
+                <div class="absolute inset-0 [mask-image:linear-gradient(to_bottom,black,black_70%,transparent)] [mask-repeat:no-repeat] [mask-size:100%_100%]"></div>
+              </figure>
+              <h3 class="mt-4 text-lg font-semibold">Card với mask fade</h3>
+              <p class="text-sm text-gray-700">
+                Phủ một lớp mask gradient từ đen → trong suốt để làm mờ dần phần dưới ảnh. Dùng arbitrary: <code>[mask-image:linear-gradient(...)]</code>.
+              </p>
+            </article>
+
+            <!-- Luminance mask demo (text on image clipped by luminance shape) -->
+            <article class="card overflow-hidden">
+              <div class="relative h-64 rounded-lg overflow-hidden">
+                <img class="absolute inset-0 h-full w-full object-cover"
+                     src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
+                     alt="Luminance mask bg" />
+                <!-- Simple SVG mask via luminance -->
+                <div class="relative h-full w-full grid place-items-center [mask-type:luminance]"
+                     style="mask-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22600%22 viewBox=%220 0 600 600%22><defs><radialGradient id=%22g%22 cx=%2250%25%22 cy=%2250%25%22 r=%2250%25%22><stop offset=%220%25%22 stop-color=%23fff/><stop offset=%22100%25%22 stop-color=%23000/></radialGradient></defs><rect width=%22600%22 height=%22600%22 fill=%22url(%23g)%22/></svg>'); mask-size: cover; mask-repeat: no-repeat;">
+                  <p class="text-3xl font-bold text-white drop-shadow">Luminance Mask</p>
+                </div>
+              </div>
+              <p class="mt-4 text-sm text-gray-700">
+                Ví dụ <code>[mask-type:luminance]</code> kết hợp một SVG gradient làm <em>mask-image</em>.
+              </p>
+            </article>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Gallery nền, gradient, clip, mask — có <code>bg-fixed</code>, <code>bg-clip-padding</code>, <code>bg-clip-text</code>, vị trí/lặp/kích thước nền, và các <code>mask-*</code> arbitrary.</p>
+      </div>
+    </footer>
+  </body>
+</html>

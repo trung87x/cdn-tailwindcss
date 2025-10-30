@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography Specimen — Tailwind CDN</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-display: "Inter", "Satoshi", ui-sans-serif, system-ui, "Segoe UI",
+          Roboto, Helvetica, Arial;
+        --color-brand-500: oklch(0.67 0.19 252);
+        --color-brand-600: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card {
+          @apply rounded-xl bg-white shadow p-6;
+        }
+        .chip {
+          @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600;
+        }
+        .scale-swatch h1 {
+          @apply font-[var(--font-display)] tracking-[.02em];
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased"
+  >
+    <header
+      class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
+    >
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-xl md:text-2xl font-bold">
+          4) Typography Specimen — Type Scale + Links
+        </h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a
+            href="#brand"
+            class="text-gray-600 hover:text-[color:var(--color-brand-600)]"
+            >Brand Type</a
+          >
+          <a
+            href="#links"
+            class="text-gray-600 hover:text-[color:var(--color-brand-600)]"
+            >Link states</a
+          >
+          <a
+            href="#numbers"
+            class="text-gray-600 hover:text-[color:var(--color-brand-600)]"
+            >Bảng số</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="py-8 subpixel-antialiased md:antialiased">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+        <!-- BRAND TYPE + SCALE -->
+        <section id="brand" class="space-y-6">
+          <header>
+            <h2 class="text-2xl font-bold">Brand type scale</h2>
+            <p class="text-sm text-gray-600">
+              Font: <code>font-[var(--font-display)]</code> • Cân chỉnh:
+              <code>text-balance</code> • Khoảng cách:
+              <code>tracking-[.02em]</code> • Dẫn dòng:
+              <code>leading-[1.15]</code>
+            </p>
+          </header>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <article class="card scale-swatch">
+              <h1 class="text-4xl md:text-6xl leading-[1.15] text-balance">
+                Tiêu đề thương hiệu đậm — hiện đại, cân bằng và dễ đọc
+              </h1>
+              <p class="mt-3 text-sm md:text-lg text-gray-700 text-pretty">
+                Hệ chữ sử dụng biến <code>--font-display</code> để đảm bảo đồng
+                nhất trên toàn hệ thống. Khuyến nghị dùng
+                <span class="font-[550]">font-[550]</span> cho tiêu đề phụ.
+              </p>
+              <ul
+                class="mt-4 list-disc list-inside text-[13px] md:text-sm text-gray-700"
+              >
+                <li>
+                  Italic / not-italic: <span class="italic">nghiêng</span>,
+                  <span class="not-italic">thẳng</span>
+                </li>
+                <li>
+                  Stretch:
+                  <span class="[font-stretch:condensed]">condensed</span> vs mặc
+                  định
+                </li>
+                <li>
+                  Spacing: <span class="tracking-wide">tracking-wide</span> &
+                  <span class="tracking-[.02em]">.02em</span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Clamp + leading + truncation/wrap -->
+            <article class="card space-y-4">
+              <h3 class="text-xl font-medium">Clamp &amp; Leading</h3>
+              <p class="line-clamp-3 leading-6 text-gray-700">
+                Đây là một đoạn văn bản dài để minh họa
+                <strong>line-clamp-3</strong> kết hợp
+                <strong>leading-6</strong> nhằm kiểm soát độ dài và nhịp đọc.
+                Khi nội dung vượt quá ba dòng, phần dư sẽ được cắt và
+                <em>hiển thị dấu ba chấm</em> gọn gàng, tránh phá vỡ bố cục của
+                card.
+              </p>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="truncate bg-gray-50 rounded px-3 py-2">
+                  truncate — cắt… một đoạn văn bản rất rất dài khó kiểm soát
+                  trong layout
+                </div>
+                <div
+                  class="text-ellipsis overflow-hidden whitespace-nowrap bg-gray-50 rounded px-3 py-2"
+                >
+                  text-ellipsis — dữ liệu bảng dài quá mức cho phép
+                </div>
+                <div
+                  class="text-clip overflow-hidden bg-gray-50 rounded px-3 py-2"
+                >
+                  text-clip — cắt thẳng không ba chấm khi tràn
+                </div>
+                <div class="text-nowrap bg-gray-50 rounded px-3 py-2">
+                  text-nowrap — không xuống dòng
+                </div>
+              </div>
+              <p class="indent-8 md:indent-[2ch] normal-case">
+                Indent đầu dòng: <code>indent-8</code> /
+                <code>indent-[2ch]</code>.
+                <span class="uppercase">uppercase</span> &rarr;
+                <span class="normal-case">normal-case</span>.
+              </p>
+              <p class="align-middle">
+                Căn dọc inline demo:
+                <span class="bg-yellow-100 px-1 align-[3px]">align-[3px]</span>
+                so với baseline.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- LINKS / DECORATION -->
+        <section id="links" class="space-y-6">
+          <header>
+            <h2 class="text-2xl font-bold">Link states &amp; decoration</h2>
+            <p class="text-sm text-gray-600">
+              Màu, underline, offset, style, pseudo
+              <code>before:[content:"New"]</code>
+            </p>
+          </header>
+
+          <div class="card space-y-3">
+            <a
+              class="text-[color:var(--color-brand-600)] underline decoration-dotted decoration-2 decoration-[--color-brand-500] underline-offset-4 hover:underline-offset-[6px] before:[content:'New'] before:mr-2"
+              href="#"
+            >
+              Liên kết chuẩn thương hiệu với dotted underline và offset
+            </a>
+
+            <div class="text-gray-700">
+              Văn bản mặc định <span class="text-[13px]">(text-[13px])</span> và
+              <span class="text-sm md:text-lg">text-sm → md:text-lg</span> để
+              minh họa responsive font-size.
+            </div>
+
+            <p class="text-left md:text-center">
+              Căn lề: <span class="chip">text-left</span> →
+              <span class="chip">md:text-center</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- NUMERIC / TABLE -->
+        <section id="numbers" class="space-y-6">
+          <header>
+            <h2 class="text-2xl font-bold">Bảng số &amp; OpenType</h2>
+            <p class="text-sm text-gray-600">
+              <code>tabular-nums</code> • <code>ordinal</code> •
+              <code>slashed-zero</code>
+            </p>
+          </header>
+
+          <div class="card">
+            <div class="mb-3 space-x-3">
+              <span class="chip ordinal">1st 2nd 3rd 4th</span>
+              <span class="chip slashed-zero">0O — slashed-zero</span>
+              <span class="chip tabular-nums">12:03 09:44 100:05</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-[40rem] w-full text-sm tabular-nums">
+                <thead>
+                  <tr class="text-left text-gray-500">
+                    <th class="py-2 pr-4">Sản phẩm</th>
+                    <th class="py-2 pr-4">Giá (₫)</th>
+                    <th class="py-2 pr-4">SKU</th>
+                    <th class="py-2 pr-4">Kho</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-900">
+                  <tr class="border-t">
+                    <td class="py-2 pr-4">Tai nghe Pro</td>
+                    <td class="py-2 pr-4 slashed-zero">2 890 000</td>
+                    <td class="py-2 pr-4">HD-001</td>
+                    <td class="py-2 pr-4">24</td>
+                  </tr>
+                  <tr class="border-t">
+                    <td class="py-2 pr-4">Bàn phím 75%</td>
+                    <td class="py-2 pr-4 slashed-zero">1 690 000</td>
+                    <td class="py-2 pr-4">KB-075</td>
+                    <td class="py-2 pr-4">08</td>
+                  </tr>
+                  <tr class="border-t">
+                    <td class="py-2 pr-4">Chuột không dây</td>
+                    <td class="py-2 pr-4">790 000</td>
+                    <td class="py-2 pr-4">MS-201</td>
+                    <td class="py-2 pr-4">112</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- WRAP / WHITE-SPACE / BREAKS / HYPHENS -->
+        <section id="wrap" class="space-y-6">
+          <header>
+            <h2 class="text-2xl font-bold">Wrap, white-space &amp; breaks</h2>
+            <p class="text-sm text-gray-600">
+              whitespace • break-words/all • hyphens-auto/none
+            </p>
+          </header>
+
+          <div class="card grid md:grid-cols-2 gap-4">
+            <div>
+              <p class="font-medium mb-2">Whitespace &amp; break</p>
+              <div class="space-y-2 text-sm">
+                <div class="whitespace-nowrap bg-gray-50 px-2 py-1 rounded">
+                  whitespace-nowrap — không xuống dòng
+                </div>
+                <div class="whitespace-pre-wrap bg-gray-50 px-2 py-1 rounded">
+                  whitespace-pre-wrap — giữ khoảng trắng và xuống dòng
+                </div>
+                <div class="break-words bg-gray-50 px-2 py-1 rounded">
+                  break-words — nếu cần sẽ bẻ từ siêudàiiiiiiiiii
+                </div>
+                <div class="break-all bg-gray-50 px-2 py-1 rounded">
+                  break-all — bẻ ở bất kỳ ký tự nàoooooo
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="font-medium mb-2">Hyphens (gạch nối)</p>
+              <p class="hyphens-auto text-sm bg-gray-50 px-2 py-1 rounded">
+                Tiếng Việt hyphenation thường không phổ biến, nhưng ở tiếng Anh
+                sẽ có hiện tượng hy-phen-a-tion khi bật
+                <code>hyphens-auto</code>.
+              </p>
+              <p class="hyphens-none text-sm bg-gray-50 px-2 py-1 rounded mt-2">
+                Hyphens-none — không bao giờ gạch nối.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div
+        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500"
+      >
+        <p>
+          Typography Specimen — đủ bộ: font, size, smoothing, weight/stretch,
+          numeric, spacing, clamp/leading, list, align, color, decoration,
+          transform, wrap, hyphens, pseudo-content.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
