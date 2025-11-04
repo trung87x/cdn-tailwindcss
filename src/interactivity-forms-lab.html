@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactivity & Forms Lab — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --brand-500: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .chip { @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600; }
+        .sr-only {
+          position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Skip link -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-black focus:px-3 focus:py-2 focus:text-white">
+      Bỏ qua nội dung điều hướng
+    </a>
+
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">11) Interactivity &amp; Forms Lab</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#wizard" class="text-gray-600 hover:text-black">Form wizard</a>
+          <a href="#snap" class="text-gray-600 hover:text-black">Scroll-snap</a>
+          <a href="#controls" class="text-gray-600 hover:text-black">Controls</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- 1) FORM WIZARD (no-JS, radio-driven) -->
+        <section id="wizard" class="space-y-4 scroll-mt-24">
+          <header>
+            <h2 class="text-2xl font-bold">Form wizard (no-JS)</h2>
+            <p class="text-sm text-gray-600">
+              Minh họa: <code>accent-blue-600</code>, <code>accent-[var(--brand-500)]</code>, <code>appearance-none</code>, <code>caret-indigo-600</code>,
+              <code>caret-[oklch(0.63_0.19_252)]</code>, <code>color-scheme-dark</code>, <code>color-scheme-[light_only]</code>,
+              <code>touch-pan-y</code>, <code>select-none/select-text</code>, <code>[field-sizing:content]</code>, <code>will-change-[transform,opacity]</code>.
+            </p>
+          </header>
+
+          <!-- Step toggles -->
+          <div class="card">
+            <div class="flex gap-4 items-center mb-4">
+              <label class="inline-flex items-center gap-2 select-none">
+                <input type="radio" name="step" class="accent-blue-600" checked />
+                <span>Bước 1</span>
+              </label>
+              <label class="inline-flex items-center gap-2 select-none">
+                <input type="radio" name="step" class="accent-[var(--brand-500)]" />
+                <span>Bước 2</span>
+              </label>
+              <label class="inline-flex items-center gap-2 select-none">
+                <input type="radio" name="step" class="accent-blue-600" />
+                <span>Bước 3</span>
+              </label>
+            </div>
+
+            <!-- Fields -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium">Họ và tên</label>
+                <input class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 caret-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                       placeholder="Nhập họ tên" />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium">Email</label>
+                <input class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 caret-[oklch(0.63_0.19_252)] focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                       type="email" placeholder="you@example.com" />
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium">Loại tài khoản (appearance-none + custom arrow)</label>
+                <div class="relative">
+                  <select class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 appearance-none bg-white">
+                    <option>Cá nhân</option>
+                    <option>Doanh nghiệp</option>
+                  </select>
+                  <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">▾</span>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium">Mô tả ngắn (field-sizing:content)</label>
+                <textarea class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 [field-sizing:content] min-h-[3rem]"
+                          rows="2" placeholder="Tự co theo nội dung..."></textarea>
+              </div>
+
+              <div class="sm:col-span-2 flex flex-wrap items-center gap-4">
+                <label class="inline-flex items-center gap-2">
+                  <input type="checkbox" class="accent-[var(--brand-500)]" checked />
+                  <span>Nhận thông báo</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input type="checkbox" class="accent-blue-600" />
+                  <span>Đồng ý điều khoản</span>
+                </label>
+              </div>
+
+              <div class="sm:col-span-2 flex items-center gap-3 select-none">
+                <button class="rounded-lg bg-black text-white px-4 py-2 will-change-[transform,opacity] transition active:scale-95">Tiếp tục</button>
+                <button class="rounded-lg bg-gray-100 px-4 py-2">Lưu nháp</button>
+              </div>
+            </div>
+
+            <!-- Color-scheme demos -->
+            <div class="mt-6 grid sm:grid-cols-2 gap-4 text-sm">
+              <fieldset class="color-scheme-dark border rounded-lg p-4">
+                <legend class="px-1 text-gray-600">color-scheme-dark</legend>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="cs1" checked /> A</label>
+                <label class="inline-flex items-center gap-2"><input type="radio" name="cs1" /> B</label>
+              </fieldset>
+              <fieldset class="color-scheme-[light_only] border rounded-lg p-4">
+                <legend class="px-1 text-gray-600">color-scheme-[light_only]</legend>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="cs2" checked /> A</label>
+                <label class="inline-flex items-center gap-2"><input type="radio" name="cs2" /> B</label>
+              </fieldset>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) SCROLL-SNAP SECTION (horizontal) -->
+        <section id="snap" class="space-y-4 scroll-mt-24">
+          <header>
+            <h2 class="text-2xl font-bold">Section scroll-snap</h2>
+            <p class="text-sm text-gray-600">
+              <code>snap-x</code> <code>snap-mandatory</code> • item <code>snap-start</code> <code>snap-always</code> •
+              <code>scroll-pt-20</code>, <code>scroll-ps-[10cqw]</code>, <code>scroll-ms-8</code> •
+              container <code>touch-pan-y</code> / <code>touch-[manipulation]</code>.
+            </p>
+          </header>
+
+          <div class="card">
+            <div class="overflow-x-auto snap-x snap-mandatory scroll-pt-20 scroll-ps-[10cqw] scroll-ms-8 touch-pan-y touch-[manipulation]">
+              <div class="flex gap-6 w-[120rem] px-4 py-2">
+                <article class="snap-start snap-always min-w-[24rem] rounded-xl bg-white shadow p-6">
+                  <h3 class="font-semibold">Slide A</h3>
+                  <p class="text-sm text-gray-600">snap-start + always</p>
+                </article>
+                <article class="snap-start snap-always min-w-[24rem] rounded-xl bg-white shadow p-6">
+                  <h3 class="font-semibold">Slide B</h3>
+                  <p class="text-sm text-gray-600">scroll padding start = 10cqw</p>
+                </article>
+                <article class="snap-start snap-always min-w-[24rem] rounded-xl bg-white shadow p-6">
+                  <h3 class="font-semibold">Slide C</h3>
+                  <p class="text-sm text-gray-600">thử kéo ngang</p>
+                </article>
+                <article class="snap-start snap-always min-w-[24rem] rounded-xl bg-white shadow p-6">
+                  <h3 class="font-semibold">Slide D</h3>
+                  <p class="text-sm text-gray-600">touch-pan-y + manipulation</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3) CONTROLS & POINTER/RESIZE/CURSOR -->
+        <section id="controls" class="space-y-4 scroll-mt-24">
+          <header>
+            <h2 class="text-2xl font-bold">Controls &amp; pointer/resize/cursor</h2>
+            <p class="text-sm text-gray-600">
+              <code>pointer-events-none</code> • <code>resize</code> / <code>resize-x</code> / <code>resize-none</code> •
+              <code>cursor-pointer</code> / <code>cursor-[nwse-resize]</code> • <code>select-none</code> / <code>select-text</code>
+            </p>
+          </header>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="card">
+              <p class="text-sm text-gray-600 mb-2">Textarea resize</p>
+              <div class="grid grid-cols-3 gap-3">
+                <textarea class="rounded-lg border p-2 h-24 resize" placeholder="resize"></textarea>
+                <textarea class="rounded-lg border p-2 h-24 resize-x" placeholder="resize-x"></textarea>
+                <textarea class="rounded-lg border p-2 h-24 resize-none" placeholder="resize-none" disabled></textarea>
+              </div>
+              <p class="mt-3 text-xs text-gray-500">Ô cuối disabled (không resize).</p>
+            </div>
+
+            <div class="card">
+              <p class="text-sm text-gray-600 mb-2">Cursor &amp; pointer-events</p>
+              <div class="flex items-center gap-4">
+                <button class="rounded-lg bg-gray-100 px-3 py-2 cursor-pointer">cursor-pointer</button>
+                <button class="rounded-lg bg-gray-100 px-3 py-2 cursor-[nwse-resize]">cursor-[nwse-resize]</button>
+                <span class="rounded bg-gray-900 text-white px-2 py-1 pointer-events-none">pointer-events-none (không click)</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-500 select-text">Đoạn này <strong>select-text</strong> (có thể bôi chọn) — khác với các label phía trên <span class="select-none">(select-none)</span>.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Form controls &amp; hành vi cuộn/chạm: accent/appearance/caret, color-scheme, cursor, field-sizing, pointer-events/resize, scroll-*, touch/select/will-change.</p>
+      </div>
+    </footer>
+  </body>
+</html>

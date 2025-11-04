@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D/3D Transforms Deck — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto, Helvetica, Arial;
+        --color-brand-600: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card { @apply rounded-2xl bg-white shadow p-6; }
+        .chip { @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">10) 2D/3D Transforms Deck</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#flip" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Card flip 3D</a>
+          <a href="#tilt" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Gallery hover tilt</a>
+          <a href="#basics" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">2D basics</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- 1) CARD FLIP 3D -->
+        <section id="flip" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Card flip 3D</h2>
+            <p class="text-sm text-gray-600">
+              <span class="chip">[perspective:800px]</span>
+              <span class="chip">[perspective-origin:50%_0]</span>
+              <span class="chip">[transform-style:preserve-3d]</span>
+              <span class="chip">[backface-visibility:hidden]</span>
+            </p>
+          </header>
+
+          <div class="grid md:grid-cols-[auto_1fr] gap-6 items-start">
+            <div class="space-y-2 text-sm">
+              <label class="inline-flex items-center gap-2 select-none">
+                <input id="flip-toggle" type="checkbox" class="peer size-4 accent-black" />
+                <span>Toggle flip (peer-checked)</span>
+              </label>
+              <p>Phụ đề: Container có <code>[perspective:800px]</code> &amp; <code>[perspective-origin:50%_0]</code>.</p>
+            </div>
+
+            <!-- Flip container -->
+            <div class="[perspective:800px] [perspective-origin:50%_0]">
+              <div class="relative size-72 mx-auto [transform-style:preserve-3d] transition-transform duration-500 ease-out
+                          peer-checked:[transform:rotateY(180deg)]"
+                   style="transform: rotateY(0deg);">
+                <!-- Front -->
+                <article class="absolute inset-0 card grid place-items-center text-center [backface-visibility:hidden]">
+                  <div>
+                    <h3 class="text-xl font-semibold">Mặt trước</h3>
+                    <p class="mt-2 text-gray-600">Nội dung card</p>
+                    <div class="mt-4 text-xs space-x-2">
+                      <span class="chip">preserve-3d</span>
+                      <span class="chip">backface-hidden</span>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Back -->
+                <article class="absolute inset-0 card grid place-items-center text-center rotate-y-180 [backface-visibility:hidden]">
+                  <div>
+                    <h3 class="text-xl font-semibold">Mặt sau</h3>
+                    <p class="mt-2 text-gray-600">Xin chào 👋</p>
+                    <div class="mt-4 text-xs space-x-2">
+                      <span class="chip">rotateY(180deg)</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) GALLERY HOVER TILT -->
+        <section id="tilt" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Gallery hover tilt</h2>
+            <p class="text-sm text-gray-600">Dùng arbitrary transform 3D: <code>[transform:rotateY(12deg)_rotateX(6deg)_translateZ(5px)]</code> + shadow.</p>
+          </header>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Card item -->
+            <figure class="group relative overflow-hidden rounded-2xl bg-white shadow-lg">
+              <img class="h-48 w-full object-cover transition-transform duration-300 ease-out origin-center group-hover:[transform:rotateY(12deg)_rotateX(6deg)_translateZ(5px)] [transform-style:preserve-3d]"
+                   src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" alt="tilt" />
+              <figcaption class="p-4">
+                <p class="font-medium">Hover tilt</p>
+                <p class="text-sm text-gray-600">origin-center + preserve-3d</p>
+              </figcaption>
+            </figure>
+
+            <figure class="group relative overflow-hidden rounded-2xl bg-white shadow-lg">
+              <img class="h-48 w-full object-cover transition-transform duration-300 ease-out origin-[20%_80%] group-hover:[transform:rotateY(-10deg)_rotateX(8deg)] [transform-style:preserve-3d]"
+                   src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1200&auto=format&fit=crop" alt="tilt 2" />
+              <figcaption class="p-4">
+                <p class="font-medium">Origin tuỳ ý</p>
+                <p class="text-sm text-gray-600">origin-[20%_80%]</p>
+              </figcaption>
+            </figure>
+
+            <figure class="group relative overflow-hidden rounded-2xl bg-white shadow-lg">
+              <img class="h-48 w-full object-cover transition-transform duration-300 ease-out origin-center group-hover:[transform:rotateX(12deg)] [transform-style:preserve-3d]"
+                   src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="tilt 3" />
+              <figcaption class="p-4">
+                <p class="font-medium">RotateX</p>
+                <p class="text-sm text-gray-600">rotateX trên hover</p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- 3) 2D BASICS DEMO -->
+        <section id="basics" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">2D transforms cơ bản</h2>
+            <p class="text-sm text-gray-600">rotate/scale/skew/translate • origin</p>
+          </header>
+
+          <div class="card">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center text-sm">
+              <div class="size-24 grid place-items-center bg-gray-200 -rotate-3 rounded">-rotate-3</div>
+              <div class="size-24 grid place-items-center bg-gray-200 scale-95 rounded">scale-95</div>
+              <div class="size-24 grid place-items-center bg-gray-200 skew-x-6 rounded">skew-x-6</div>
+              <div class="size-24 grid place-items-center bg-gray-200 translate-y-1/2 rounded">translate-y-1/2</div>
+              <div class="size-24 grid place-items-center bg-gray-200 origin-center rotate-6 rounded">origin-center</div>
+              <div class="size-24 grid place-items-center bg-gray-200 origin-[20%_80%] -rotate-6 rounded">origin-[20%_80%]</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Transforms 2D/3D: perspective, origin, preserve-3d, backface-hidden + rotate/scale/skew/translate.</p>
+      </div>
+    </footer>
+  </body>
+</html>

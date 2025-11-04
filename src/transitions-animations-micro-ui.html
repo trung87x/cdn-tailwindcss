@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transitions & Animations Micro-UI — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto, Helvetica, Arial;
+        --color-brand-600: oklch(0.63 0.19 252);
+      }
+
+      /* Custom keyframes for arbitrary animation name */
+      @layer utilities {
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(-3deg); }
+          50% { transform: rotate(3deg); }
+        }
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .btn  { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium; }
+        .btn-primary { @apply bg-black text-white hover:bg-gray-900; }
+        .btn-ghost   { @apply bg-gray-100 text-gray-900 hover:bg-gray-200; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">9) Transitions &amp; Animations Micro-UI</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#buttons" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Buttons + Tooltip</a>
+          <a href="#accordion" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Accordion</a>
+          <a href="#toast" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Toast</a>
+          <a href="#spinners" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Spinners</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- 1) BUTTONS + TOOLTIP (enter/exit with allow-discrete) -->
+        <section id="buttons" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Nút + Tooltip</h2>
+            <p class="text-sm text-gray-600">
+              <code>transition</code>, <code>transition-colors</code>, <code>transition-[transform,opacity]</code>,
+              <code>[transition-behavior:allow-discrete]</code> •
+              <code>duration-300</code>, <code>duration-[75ms]</code>, <code>ease-in-out</code>,
+              <code>ease-[cubic-bezier(.2,.8,.2,1)]</code>, <code>delay-150</code>.
+            </p>
+          </header>
+
+          <div class="card flex flex-wrap items-center gap-6">
+            <!-- Button color/transform transitions -->
+            <button
+              class="btn btn-primary transition-colors duration-300 ease-in-out hover:bg-[color:var(--color-brand-600)]">
+              Primary (colors)
+            </button>
+
+            <button
+              class="btn btn-ghost transition-[transform,opacity] duration-[75ms] ease-[cubic-bezier(.2,.8,.2,1)] hover:scale-[1.03] active:scale-95">
+              Ghost (transform)
+            </button>
+
+            <!-- Tooltip: hover/focus with discrete behavior -->
+            <div class="relative group">
+              <button class="btn btn-ghost">Tooltip target</button>
+              <span
+                class="pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black px-2 py-1 text-xs text-white opacity-0 translate-y-1
+                       transition-[transform,opacity] duration-200 ease-out group-hover:opacity-100 group-hover:translate-y-0
+                       group-focus-within:opacity-100 group-focus-within:translate-y-0
+                       [transition-behavior:allow-discrete]">
+                Đây là tooltip
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) ACCORDION (details) with smooth enter/exit -->
+        <section id="accordion" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Accordion (không JS)</h2>
+            <p class="text-sm text-gray-600">Dùng <code>&lt;details&gt;</code> + grid-row trick để mượt phần mở/đóng.</p>
+          </header>
+
+          <div class="card space-y-3">
+            <details class="group rounded-lg border">
+              <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 select-none">
+                <span class="font-medium">Mục 1 — Tổng quan</span>
+                <svg class="chevron size-4 transition-transform duration-300 ease-in-out"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+
+              <!-- content wrapper animates grid rows (0fr -> 1fr) -->
+              <div class="content grid [grid-template-rows:0fr] transition-[grid-template-rows] duration-300 ease-in-out
+                          [&>*]:overflow-hidden
+                          [&[open]_.content]:[grid-template-rows:1fr]">
+                <div class="px-4 pb-4 text-sm text-gray-700">
+                  Accordion mở ra/đóng lại mượt mà nhờ đổi <code>grid-template-rows</code> từ <code>0fr</code> → <code>1fr</code>.
+                </div>
+              </div>
+            </details>
+
+            <details class="group rounded-lg border">
+              <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 select-none">
+                <span class="font-medium">Mục 2 — Chi tiết</span>
+                <svg class="chevron size-4 transition-transform duration-300 ease-in-out"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="content grid [grid-template-rows:0fr] transition-[grid-template-rows] duration-300 ease-in-out
+                          [&>*]:overflow-hidden
+                          [&[open]_.content]:[grid-template-rows:1fr]">
+                <div class="px-4 pb-4 text-sm text-gray-700">
+                  Bạn có thể thêm <code>delay-150</code> cho chi tiết để lệch nhịp một chút.
+                </div>
+              </div>
+            </details>
+
+            <!-- Rotate chevron when open (using arbitrary selector variant) -->
+            <style>
+              /* Tailwind arbitrary selector can't target parent state in plain HTML easily, so add small CSS helper */
+              details[open] .chevron { transform: rotate(180deg); }
+            </style>
+          </div>
+        </section>
+
+        <!-- 3) TOAST (peer-checked) with enter/exit -->
+        <section id="toast" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Toast (peer-checked)</h2>
+            <p class="text-sm text-gray-600">Hiệu ứng enter/exit: <code>opacity</code> + <code>translate</code> + <code>[transition-behavior:allow-discrete]</code>.</p>
+          </header>
+
+          <div class="card flex items-center gap-4">
+            <input id="toast-toggle" type="checkbox" class="peer hidden" />
+            <label for="toast-toggle" class="btn btn-primary cursor-pointer">Toggle toast</label>
+
+            <div
+              class="relative">
+              <div
+                class="pointer-events-none fixed right-4 bottom-4 z-50 w-80 rounded-lg bg-black/90 px-4 py-3 text-sm text-white shadow
+                       opacity-0 translate-y-2
+                       transition-[transform,opacity] ease-in-out duration-300 peer-checked:opacity-100 peer-checked:translate-y-0
+                       [transition-behavior:allow-discrete]">
+                <p class="font-medium">Đã lưu thay đổi</p>
+                <p class="opacity-80">Bản nháp được cập nhật thành công.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4) SPINNERS / PULSE / CUSTOM ANIMATION -->
+        <section id="spinners" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Spinners &amp; Animations</h2>
+            <p class="text-sm text-gray-600">
+              <code>animate-spin</code>, <code>animate-pulse</code>, <code>animate-[wiggle_1s_ease-in-out_infinite]</code>
+            </p>
+          </header>
+
+          <div class="card grid grid-cols-2 md:grid-cols-4 gap-6 place-items-center text-sm">
+            <div class="flex flex-col items-center gap-2">
+              <svg class="size-8 animate-spin text-black" viewBox="0 0 24 24">
+                <circle class="opacity-35" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/>
+                <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" fill="none"/>
+              </svg>
+              <span>animate-spin</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+              <div class="size-8 rounded-full bg-black/80 animate-pulse"></div>
+              <span>animate-pulse</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+              <button class="btn btn-ghost animate-[wiggle_1s_ease-in-out_infinite]">Wiggle</button>
+              <span>animate-[wiggle_1s_ease-in-out_infinite]</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+              <div class="size-10 rounded-lg bg-gray-900 text-white grid place-items-center shadow
+                          transition duration-300 ease-in-out hover:scale-105">
+                UI
+              </div>
+              <span>transition + hover</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Vi chuyển động chuẩn UX: thuộc tính chuyển tiếp, thời lượng/độ cong/độ trễ, và animation sẵn + tuỳ ý.</p>
+      </div>
+    </footer>
+  </body>
+</html>

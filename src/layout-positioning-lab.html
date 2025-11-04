@@ -1,22 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Layout & Positioning Lab — Tailwind CDN</title>
-
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <style type="text/tailwindcss">
       @theme {
-        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
         --color-brand: oklch(0.63 0.19 252);
         --color-ink: oklch(0.23 0.03 264);
-        --radius-lg: 0.75rem;
       }
 
-      /* Demo helpers */
+      @layer base {
+        body {
+          @apply bg-gray-50 font-sans text-gray-900 antialiased;
+        }
+      }
+
+      @layer components {
+        .card {
+          @apply box-content rounded-xl bg-white p-4 shadow transition hover:shadow-md;
+        }
+      }
+
       @layer utilities {
         .debug-box {
           @apply border border-dashed border-gray-300 bg-white/30;
@@ -24,165 +30,189 @@
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-800 font-sans antialiased">
-    <!-- Skip link (z-index + visibility demo) -->
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:shadow-md focus:px-3 focus:py-2 focus:rounded"
-    >
-      Bỏ qua nội dung
-    </a>
-
-    <!-- Header / Hero 16:9 -->
+  <body>
     <header class="relative isolate">
-      <!-- Hero media: aspect-ratio + object-fit/position -->
-      <div class="aspect-[16/9] w-full overflow-hidden">
+      <!-- Layout: giữ tỷ lệ & khung cắt -->
+      <figure class="aspect-video overflow-hidden">
+        <!-- Surface: ảnh nền -->
         <img
-          src="https://images.unsplash.com/photo-1520975922284-5f5733653c0e?q=80&w=1920&auto=format&fit=crop"
-          alt="Hero cover"
-          class="h-full w-full object-cover object-[center_top]"
-          loading="lazy"
+          class="size-full object-cover object-[center_top]"
+          src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920&auto=format&fit=crop"
+          alt=""
         />
+      </figure>
+
+      <!-- Surface: overlay (không chặn chuột) -->
+      <div class="pointer-events-none absolute inset-0">
+        <div class="size-full bg-gradient-to-t from-black/40 to-black/0"></div>
       </div>
 
-      <!-- Overlay absolute + inset + transform -->
+      <!-- Layout (local): khối text được căn giữa -->
       <div
-        class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"
-      ></div>
-
-      <div
-        class="pointer-events-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white drop-shadow"
+        class="pointer-events-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
-        <h1 class="text-4xl md:text-6xl font-bold">Cards + TOC</h1>
-        <p class="mt-3 text-lg/7 md:text-xl/8">
-          Lab: Bố cục, stacking, và cuộn với Tailwind CDN
-        </p>
+        <!-- Content: chỉ còn chữ & spacing nội bộ -->
+        <section class="max-w-2xl space-y-3 text-center">
+          <h1 class="text-3xl font-bold text-white sm:text-4xl">
+            Tiêu đề nổi bật
+          </h1>
+          <p class="text-white/90">
+            Đoạn mô tả ngắn gọn để người dùng hiểu nội dung.
+          </p>
+        </section>
       </div>
     </header>
 
-    <!-- Main layout -->
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- TOC sticky (position: sticky + top + z-index, isolation) -->
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
         <aside
-          class="lg:col-span-3 lg:h-[calc(100dvh-8rem)] lg:sticky lg:top-20 isolate"
+          class="isolate lg:sticky lg:top-20 lg:col-span-3 lg:h-[calc(100dvh-8rem)]"
         >
-          <nav class="rounded-lg bg-white shadow p-4">
+          <nav class="rounded-lg bg-white p-4 shadow">
             <h2 class="text-sm font-semibold text-gray-500">Mục lục</h2>
-            <ol class="mt-3 space-y-2 text-sm">
+            <ol class="mt-3 space-y-2">
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#cards"
+                <a class="hover:text-brand text-sm text-gray-700" href="#cards"
                   >1. Lưới thẻ (Grid)</a
                 >
               </li>
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#columns"
+                <a
+                  class="hover:text-brand text-sm text-gray-700"
+                  href="#columns"
                   >2. Columns (Masonry)</a
                 >
               </li>
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#float-clear"
+                <a
+                  class="hover:text-brand text-sm text-gray-700"
+                  href="#float-clear"
                   >3. Float &amp; Clear</a
                 >
               </li>
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#table"
+                <a class="hover:text-brand text-sm text-gray-700" href="#table"
                   >4. Bảng cuộn ngang</a
                 >
               </li>
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#visibility"
+                <a
+                  class="hover:text-brand text-sm text-gray-700"
+                  href="#visibility"
                   >5. Visibility</a
                 >
               </li>
               <li>
-                <a class="text-gray-700 hover:text-brand" href="#print"
+                <a class="hover:text-brand text-sm text-gray-700" href="#print"
                   >6. Break cho in ấn</a
                 >
               </li>
             </ol>
           </nav>
         </aside>
-
-        <!-- Content -->
-        <main id="main" class="lg:col-span-9 space-y-16">
-          <!-- 1) Cards grid: display grid, box-sizing, z-index demo -->
+        <main class="space-y-16 lg:col-span-9">
+          <!-- 1) Cards grid -->
           <section id="cards">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">1) Lưới thẻ (Grid)</h2>
+              <h2 class="text-ink text-2xl font-bold">1) Lưới thẻ (Grid)</h2>
               <p class="text-sm text-gray-600">
                 Sử dụng <code>grid</code>, <code>z-10</code>,
                 <code>box-border</code>…
               </p>
             </header>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 relative">
-              <!-- floating badge to show stacking context (z-index) -->
-              <div
-                class="absolute -top-3 left-4 z-10 select-none rounded-full bg-black/80 px-2 py-1 text-xs text-white"
-              >
-                z-10
-              </div>
-
-              <!-- Card -->
+            <div class="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <article
-                class="group rounded-xl bg-white shadow hover:shadow-md transition box-border p-4"
+                class="rounded-xl bg-white p-4 shadow transition hover:shadow-md"
               >
-                <div class="aspect-square overflow-hidden rounded-lg debug-box">
+                <!--box badge -->
+                <div class="relative">
+                  <div class="pointer-events-none absolute -top-7 left-4 z-10">
+                    <div class="rounded-full bg-black/80 px-2 select-none">
+                      <span class="text-xs leading-6 text-white">z-10</span>
+                    </div>
+                  </div>
+                </div>
+                <!--box image -->
+                <figure
+                  class="aspect-square overflow-hidden rounded-lg border border-dashed border-gray-300 bg-white/30"
+                >
                   <img
-                    class="h-full w-full object-cover"
+                    class="size-full object-cover"
                     src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=800&auto=format&fit=crop"
                     alt="Thumb 1"
                   />
-                </div>
-                <h3 class="mt-3 text-lg font-semibold">Card 1</h3>
-                <p class="text-sm text-gray-600">
-                  box-border đang tính padding trong kích thước phần tử.
-                </p>
-                <a class="text-brand hover:underline" href="#top">Chi tiết</a>
+                </figure>
+                <!--box text -->
+                <section class="mt-3">
+                  <h3 class="text-lg font-semibold">Card 1</h3>
+                  <p class="text-sm text-gray-600">
+                    box-border đang tính padding trong kích thước phần tử.
+                  </p>
+                  <a class="text-brand hover:underline" href="">Chi tiết</a>
+                </section>
               </article>
-
               <article
-                class="group rounded-xl bg-white shadow hover:shadow-md transition box-content p-4"
+                class="rounded-xl bg-white p-4 shadow transition hover:shadow-md"
               >
-                <div class="aspect-square overflow-hidden rounded-lg debug-box">
+                <!--box badge -->
+                <div class="relative">
+                  <div class="pointer-events-none absolute -top-7 left-4 z-10">
+                    <div class="rounded-full bg-black/80 px-2 select-none">
+                      <span class="text-xs leading-6 text-white">z-10</span>
+                    </div>
+                  </div>
+                </div>
+                <!--box image -->
+                <figure
+                  class="aspect-square overflow-hidden rounded-lg border border-dashed border-gray-300 bg-white/30"
+                >
                   <img
-                    class="h-full w-full object-cover"
-                    src="https://images.unsplash.com/photo-1520974735194-8d95f4906b1b?q=80&w=800&auto=format&fit=crop"
+                    class="size-full object-cover"
+                    src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=800&auto=format&fit=crop"
                     alt="Thumb 2"
                   />
-                </div>
-                <h3 class="mt-3 text-lg font-semibold">Card 2</h3>
-                <p class="text-sm text-gray-600">
-                  box-content không tính padding vào kích thước phần tử.
-                </p>
-                <button
-                  class="mt-2 inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-gray-50"
-                >
-                  Nút
-                </button>
+                </figure>
+                <!--box text -->
+                <section class="mt-3">
+                  <h3 class="text-lg font-semibold">Card 2</h3>
+                  <p class="text-sm text-gray-600">
+                    box-border đang tính padding trong kích thước phần tử.
+                  </p>
+                  <button
+                    class="mt-2 inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-gray-50"
+                  >
+                    Nút
+                  </button>
+                </section>
               </article>
-
               <article
-                class="group rounded-xl bg-white shadow hover:shadow-md transition p-4"
+                class="rounded-xl bg-white p-4 shadow transition hover:shadow-md"
               >
-                <div
-                  class="aspect-square overflow-hidden rounded-lg debug-box relative"
+                <!--box badge -->
+                <div class="relative">
+                  <div class="pointer-events-none absolute -top-7 left-4 z-10">
+                    <div class="rounded-full bg-black/80 px-2 select-none">
+                      <span class="text-xs leading-6 text-white">z-10</span>
+                    </div>
+                  </div>
+                </div>
+                <!--box image -->
+                <figure
+                  class="aspect-square overflow-hidden rounded-lg border border-dashed border-gray-300 bg-white/30"
                 >
-                  <!-- absolute + inset -->
-                  <span
-                    class="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/5"
-                  ></span>
                   <img
-                    class="h-full w-full object-cover"
+                    class="size-full object-cover"
                     src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=800&auto=format&fit=crop"
                     alt="Thumb 3"
                   />
-                </div>
-                <h3 class="mt-3 text-lg font-semibold">Card 3</h3>
-                <p class="text-sm text-gray-600">
-                  absolute + inset-0 tạo lớp phủ viền.
-                </p>
+                </figure>
+                <!--box text -->
+                <section class="mt-3">
+                  <h3 class="text-lg font-semibold">Card 3</h3>
+                  <p class="text-sm text-gray-600">
+                    box-border đang tính padding trong kích thước phần tử.
+                  </p>
+                </section>
               </article>
             </div>
           </section>
@@ -190,129 +220,93 @@
           <!-- 2) Columns masonry -->
           <section id="columns">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">2) Columns (Masonry)</h2>
-              <p class="text-sm text-gray-600">
-                Dùng <code>columns-2</code> ở mobile lớn, và
-                <code>columns-[14rem]</code> để auto-fill.
+              <h2 class="text-ink text-2xl font-bold">2) Columns (Masonry)</h2>
+              <p class="text-sm text-gray-500">
+                Dùng <code class="font-mono">columns-2</code> ở mobile lớn, và
+                <code class="font-mono">columns-[14rem]</code> để auto-fill.
               </p>
             </header>
-
             <div
-              class="columns-2 md:columns-[14rem] gap-4 [column-fill:balance]"
+              class="columns-2 gap-4 [column-fill:balance] md:columns-[14rem]"
             >
-              <!-- Use break-inside-avoid to avoid breaking cards -->
-              <!-- Using 'contents' to flatten markup around cards -->
               <div class="contents">
                 <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
+                  class="mb-4 break-inside-avoid rounded-xl bg-white p-3 shadow"
                 >
                   <div class="aspect-[4/3] overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full object-cover"
+                      class="size-full object-cover"
                       src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=800&auto=format&fit=crop"
                       alt="Masonry thumb"
                     />
                   </div>
-                  <h3 class="mt-2 font-semibold">Mục 1</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 1.</p>
+                  <section class="mt-2">
+                    <h3 class="font-semibold">Mục 1</h3>
+                    <p class="text-sm text-gray-600">Mô tả ngắn cho item 1.</p>
+                  </section>
                 </article>
 
                 <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
+                  class="mb-4 break-inside-avoid rounded-xl bg-white p-3 shadow"
                 >
                   <div class="aspect-[4/3] overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full object-cover"
+                      class="size-full object-cover"
                       src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop"
                       alt="Masonry thumb"
                     />
                   </div>
-                  <h3 class="mt-2 font-semibold">Mục 2</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 2.</p>
+                  <section class="mt-2">
+                    <h3 class="font-semibold">Mục 2</h3>
+                    <p class="text-sm text-gray-600">Mô tả ngắn cho item 2.</p>
+                  </section>
                 </article>
 
                 <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
+                  class="mb-4 break-inside-avoid rounded-xl bg-white p-3 shadow"
                 >
                   <div class="aspect-[4/3] overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full object-cover"
+                      class="size-full object-cover"
                       src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=800&auto=format&fit=crop"
                       alt="Masonry thumb"
                     />
                   </div>
-                  <h3 class="mt-2 font-semibold">Mục 3</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 3.</p>
+                  <section class="mt-2">
+                    <h3 class="font-semibold">Mục 3</h3>
+                    <p class="text-sm text-gray-600">Mô tả ngắn cho item 3.</p>
+                  </section>
                 </article>
 
                 <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
+                  class="mb-4 break-inside-avoid rounded-xl bg-white p-3 shadow"
                 >
                   <div class="aspect-[4/3] overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full object-cover"
+                      class="size-full object-cover"
                       src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop"
                       alt="Masonry thumb"
                     />
                   </div>
-                  <h3 class="mt-2 font-semibold">Mục 4</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 4.</p>
+                  <section class="mt-2">
+                    <h3 class="font-semibold">Mục 4</h3>
+                    <p class="text-sm text-gray-600">Mô tả ngắn cho item 4.</p>
+                  </section>
                 </article>
-
                 <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
+                  class="mb-4 break-inside-avoid rounded-xl bg-white p-3 shadow"
                 >
                   <div class="aspect-[4/3] overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full object-cover"
+                      class="size-full object-cover"
                       src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=800&auto=format&fit=crop"
                       alt="Masonry thumb"
                     />
                   </div>
-                  <h3 class="mt-2 font-semibold">Mục 5</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 5.</p>
-                </article>
-
-                <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
-                >
-                  <div class="aspect-[4/3] overflow-hidden rounded-lg">
-                    <img
-                      class="h-full w-full object-cover"
-                      src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=800&auto=format&fit=crop"
-                      alt="Masonry thumb"
-                    />
-                  </div>
-                  <h3 class="mt-2 font-semibold">Mục 6</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 6.</p>
-                </article>
-
-                <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
-                >
-                  <div class="aspect-[4/3] overflow-hidden rounded-lg">
-                    <img
-                      class="h-full w-full object-cover"
-                      src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=800&auto=format&fit=crop"
-                      alt="Masonry thumb"
-                    />
-                  </div>
-                  <h3 class="mt-2 font-semibold">Mục 7</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 7.</p>
-                </article>
-
-                <article
-                  class="mb-4 break-inside-avoid rounded-xl bg-white shadow p-3"
-                >
-                  <div class="aspect-[4/3] overflow-hidden rounded-lg">
-                    <img
-                      class="h-full w-full object-cover"
-                      src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=800&auto=format&fit=crop"
-                      alt="Masonry thumb"
-                    />
-                  </div>
-                  <h3 class="mt-2 font-semibold">Mục 8</h3>
-                  <p class="text-sm text-gray-600">Mô tả ngắn cho item 8.</p>
+                  <section class="mt-2">
+                    <h3 class="font-semibold">Mục 5</h3>
+                    <p class="text-sm text-gray-600">Mô tả ngắn cho item 5.</p>
+                  </section>
                 </article>
               </div>
             </div>
@@ -321,18 +315,21 @@
           <!-- 3) Float & Clear -->
           <section id="float-clear">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">3) Float &amp; Clear</h2>
+              <h2 class="text-ink text-2xl font-bold">3) Float &amp; Clear</h2>
               <p class="text-sm text-gray-600">
                 Ảnh float-right, đoạn văn clear-both.
               </p>
             </header>
-
-            <div class="bg-white rounded-xl shadow p-4">
-              <img
-                src="https://images.unsplash.com/photo-1520972222284-ea3f5a6d7e47?q=80&w=400&auto=format&fit=crop"
-                alt="Float demo"
-                class="float-right ml-4 mb-4 aspect-square w-32 object-cover rounded-lg"
-              />
+            <div class="rounded-xl bg-white p-4 shadow">
+              <figure
+                class="float-right mb-4 ml-4 aspect-square overflow-hidden rounded-lg"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1634069409376-dfeb9217ec1d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171"
+                  alt="Float demo"
+                  class="h-full w-32 object-cover"
+                />
+              </figure>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Quisquam nemo numquam consequuntur maxime sequi, impedit ratione
@@ -348,33 +345,38 @@
           <!-- 4) Horizontal table scroll: overflow + overscroll -->
           <section id="table">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">4) Bảng cuộn ngang</h2>
+              <h2 class="text-ink text-2xl font-bold">4) Bảng cuộn ngang</h2>
               <p class="text-sm text-gray-600">
                 Dùng <code>overflow-x-auto</code> +
                 <code>overscroll-contain</code>.
               </p>
             </header>
-
             <div
-              class="rounded-xl bg-white shadow p-4 overflow-x-auto overscroll-contain"
+              class="overflow-x-auto overscroll-contain rounded-xl bg-white p-4 shadow"
             >
               <table
                 class="min-w-[64rem] border-separate border-spacing-0 text-sm"
               >
                 <thead>
                   <tr class="bg-gray-100">
-                    <th class="text-left p-3 sticky left-0 bg-gray-100">Tên</th>
-                    <th class="text-left p-3">Email</th>
-                    <th class="text-left p-3">Vai trò</th>
-                    <th class="text-left p-3">Trạng thái</th>
-                    <th class="text-left p-3">Ngày tạo</th>
-                    <th class="text-left p-3">Ghi chú</th>
-                    <th class="text-left p-3">Hành động</th>
+                    <th
+                      class="sticky left-0 hidden bg-gray-100 p-3 text-left sm:block"
+                    >
+                      Tên
+                    </th>
+                    <th class="p-3 text-left">Email</th>
+                    <th class="p-3 text-left">Vai trò</th>
+                    <th class="p-3 text-left">Trạng thái</th>
+                    <th class="p-3 text-left">Ngày tạo</th>
+                    <th class="p-3 text-left">Ghi chú</th>
+                    <th class="p-3 text-left">Hành động</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 1</td>
+                    <td class="sticky left-0 hidden bg-inherit p-3 sm:block">
+                      Người 1
+                    </td>
                     <td class="p-3">user1@example.com</td>
                     <td class="p-3">Editor</td>
                     <td class="p-3">Active</td>
@@ -386,168 +388,14 @@
                   </tr>
 
                   <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 2</td>
+                    <td class="sticky left-0 hidden bg-inherit p-3 sm:block">
+                      Người 2
+                    </td>
                     <td class="p-3">user2@example.com</td>
                     <td class="p-3">Editor</td>
                     <td class="p-3">Active</td>
                     <td class="p-3">2025-10-12</td>
                     <td class="p-3">Ghi chú 2</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 3</td>
-                    <td class="p-3">user3@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-13</td>
-                    <td class="p-3">Ghi chú 3</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 4</td>
-                    <td class="p-3">user4@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-14</td>
-                    <td class="p-3">Ghi chú 4</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 5</td>
-                    <td class="p-3">user5@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-15</td>
-                    <td class="p-3">Ghi chú 5</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 6</td>
-                    <td class="p-3">user6@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-16</td>
-                    <td class="p-3">Ghi chú 6</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 7</td>
-                    <td class="p-3">user7@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-17</td>
-                    <td class="p-3">Ghi chú 7</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 8</td>
-                    <td class="p-3">user8@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-18</td>
-                    <td class="p-3">Ghi chú 8</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 9</td>
-                    <td class="p-3">user9@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-19</td>
-                    <td class="p-3">Ghi chú 9</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 10</td>
-                    <td class="p-3">user10@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-20</td>
-                    <td class="p-3">Ghi chú 10</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 11</td>
-                    <td class="p-3">user11@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-21</td>
-                    <td class="p-3">Ghi chú 11</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 12</td>
-                    <td class="p-3">user12@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-22</td>
-                    <td class="p-3">Ghi chú 12</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 13</td>
-                    <td class="p-3">user13@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-23</td>
-                    <td class="p-3">Ghi chú 13</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 14</td>
-                    <td class="p-3">user14@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-24</td>
-                    <td class="p-3">Ghi chú 14</td>
-                    <td class="p-3">
-                      <a href="#" class="text-brand hover:underline">Xem</a>
-                    </td>
-                  </tr>
-
-                  <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-3 sticky left-0 bg-inherit">Người 15</td>
-                    <td class="p-3">user15@example.com</td>
-                    <td class="p-3">Editor</td>
-                    <td class="p-3">Active</td>
-                    <td class="p-3">2025-10-25</td>
-                    <td class="p-3">Ghi chú 15</td>
                     <td class="p-3">
                       <a href="#" class="text-brand hover:underline">Xem</a>
                     </td>
@@ -560,27 +408,23 @@
           <!-- 5) Visibility -->
           <section id="visibility">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">5) Visibility</h2>
+              <h2 class="text-ink text-2xl font-bold">5) Visibility</h2>
               <p class="text-sm text-gray-600">
                 Hiển thị/ẩn dựa vào breakpoint.
               </p>
             </header>
-
-            <div class="grid sm:grid-cols-3 gap-4">
+            <div class="grid gap-4 sm:grid-cols-3">
               <div class="rounded-lg bg-white p-4 shadow">
                 <p><span class="font-semibold">visible</span> (mặc định)</p>
               </div>
-              <div class="rounded-lg bg-white p-4 shadow invisible sm:visible">
+              <div class="invisible rounded-lg bg-white p-4 shadow sm:visible">
                 <p>
                   <code>invisible</code> ở mobile, <code>visible</code> từ
                   <code>sm</code>.
                 </p>
               </div>
-              <div class="rounded-lg bg-white p-4 shadow">
-                <p class="collapse sm:visible">
-                  Ô này dùng <code>collapse</code> (đặc biệt cho bảng) →
-                  <span class="hidden sm:inline">hiện từ sm</span>.
-                </p>
+              <div class="hidden rounded-lg bg-white p-4 shadow sm:block">
+                <span class="hidden sm:inline">hiện từ sm</span>.
               </div>
             </div>
           </section>
@@ -588,25 +432,25 @@
           <!-- 6) Print / breaks -->
           <section id="print">
             <header class="mb-4">
-              <h2 class="text-2xl font-bold text-ink">6) Break cho in ấn</h2>
+              <h2 class="text-ink text-2xl font-bold">6) Break cho in ấn</h2>
               <p class="text-sm text-gray-600">
                 Minh họa <code>break-inside-avoid</code> &amp;
                 <code>break-after-page</code>.
               </p>
             </header>
 
-            <div class="bg-white rounded-xl shadow p-4">
-              <div class="grid sm:grid-cols-2 gap-4">
-                <div class="p-3 border rounded break-inside-avoid">
+            <div class="rounded-xl bg-white p-4 shadow">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="break-inside-avoid rounded border p-3">
                   <p class="text-sm">
                     Box 1 — sẽ tránh bị ngắt giữa trang khi in.
                   </p>
                 </div>
-                <div class="p-3 border rounded break-inside-avoid">
+                <div class="break-inside-avoid rounded border p-3">
                   <p class="text-sm">Box 2 — cũng tránh ngắt.</p>
                 </div>
               </div>
-              <div class="mt-6 p-3 border rounded print:break-after-page">
+              <div class="mt-6 rounded border p-3 print:break-after-page">
                 <p class="text-sm">
                   Khối này dùng <code>print:break-after-page</code> để buộc ngắt
                   trang sau khi in.
@@ -614,22 +458,17 @@
               </div>
             </div>
           </section>
-
-          <!-- Hidden demo (display: hidden) -->
-          <section class="hidden">
-            <p>Đoạn ẩn để minh họa <code>hidden</code>.</p>
-          </section>
         </main>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="py-10 text-center text-sm text-gray-500">
-      <p>
-        Made with Tailwind CDN. Demo các tiện ích: aspect-ratio, columns,
-        break-*, box-sizing, display, float/clear, isolation,
-        object-fit/position, overflow/overscroll, position/inset/transform,
-        visibility, z-index.
+    <footer class="border-t border-gray-200 py-10 text-center">
+      <p class="text-sm text-gray-500">
+        Made with
+        <span class="font-semibold text-gray-700">Tailwind CDN</span>. Demo các
+        tiện ích layout:
+        <code class="font-mono text-gray-600">aspect-ratio</code>,
+        <code>columns</code>, <code>float</code>, <code>position</code>, v.v.
       </p>
     </footer>
   </body>

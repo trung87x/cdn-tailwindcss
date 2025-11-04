@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility & Forced Colors (Bonus mini) — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --brand: oklch(0.63 0.19 252);
+      }
+      /* Fallback utilities in case your Tailwind build doesn't expose them by default */
+      @layer utilities {
+        .forced-color-adjust-none { forced-color-adjust: none; }
+        .forced-color-adjust-auto { forced-color-adjust: auto; }
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .btn  { @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium; }
+        .btn-ghost { @apply bg-gray-100 text-gray-900 hover:bg-gray-200; }
+        .btn-primary { @apply bg-black text-white hover:bg-gray-900; }
+      }
+
+      /* Visual hints only when Forced Colors is active (Windows High Contrast, etc.) */
+      @media (forced-colors: active) {
+        .hc-note { outline: 2px dotted CanvasText; outline-offset: 2px; }
+        .hc-icon { forced-color-adjust: none; } /* keep our custom icon visible */
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">13) Accessibility &amp; Forced Colors (Bonus mini)</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#banner" class="text-gray-600 hover:text-black">Banner cảnh báo</a>
+          <a href="#compare" class="text-gray-600 hover:text-black">So sánh auto/none</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+
+        <!-- 1) WARNING BANNER (works under Forced Colors) -->
+        <section id="banner" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Banner cảnh báo (Windows High Contrast)</h2>
+            <p class="text-sm text-gray-600">
+              Kiểm soát bằng <code>forced-color-adjust-auto</code> / <code>forced-color-adjust-none</code>.
+              Mở <em>Windows Settings → Accessibility → Contrast themes</em> (hoặc Edge DevTools: emulation Forced Colors) để thử.
+            </p>
+          </header>
+
+          <div class="card relative overflow-hidden">
+            <!-- Decorative gradient that we DON'T want to be overridden in HC -->
+            <div class="absolute inset-0 -z-10 forced-color-adjust-none bg-[radial-gradient(120%_80%_at_0%_0%,rgba(99,102,241,.18),transparent)]"></div>
+
+            <div class="flex items-start gap-4">
+              <!-- Icon: keep visible in HC using forced-color-adjust-none -->
+              <div class="hc-icon forced-color-adjust-none grid size-10 place-items-center rounded-lg bg-[color:var(--brand)] text-white shadow">
+                <svg width="20" height="20" viewBox="0 0 24 24" class="fill-current"><path d="M12 2 1 21h22L12 2Zm1 15h-2v-2h2v2Zm0-4h-2V9h2v4Z"/></svg>
+              </div>
+
+              <div class="min-w-0">
+                <h3 class="text-lg font-semibold">Cảnh báo quan trọng</h3>
+                <p class="text-sm text-gray-700">
+                  Hệ thống đang ở chế độ bảo trì. Một số tính năng có thể tạm hạn chế.
+                  Trong <strong>High Contrast</strong>, các màu có thể được hệ điều hành thay thế để tăng độ tương phản.
+                </p>
+                <div class="mt-3 flex flex-wrap gap-3">
+                  <!-- Buttons inherit HC palette (auto) -->
+                  <button class="btn btn-primary forced-color-adjust-auto">Xem chi tiết</button>
+                  <button class="btn btn-ghost forced-color-adjust-auto">Bỏ qua</button>
+                </div>
+                <p class="hc-note mt-3 text-xs text-gray-500">
+                  Gợi ý: Để đồ họa trang trí giữ nguyên trong HC, dùng <code>forced-color-adjust-none</code>.
+                  Với control tương tác, nên để <code>auto</code> để người dùng nhận được màu tương phản chuẩn hệ điều hành.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) SIDE-BY-SIDE COMPARISON -->
+        <section id="compare" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">So sánh: auto vs none</h2>
+            <p class="text-sm text-gray-600">
+              Trái: <code>forced-color-adjust-auto</code> (tuân theo HC). Phải: <code>forced-color-adjust-none</code> (khóa màu gốc).
+            </p>
+          </header>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- AUTO (recommended for interactive components) -->
+            <div class="card forced-color-adjust-auto">
+              <h3 class="font-semibold">AUTO (khuyến nghị)</h3>
+              <p class="text-sm text-gray-700">Trong HC, nền/viền/chữ có thể đổi sang màu hệ thống (Canvas, CanvasText, ButtonFace...).</p>
+              <div class="mt-3 flex flex-wrap gap-3">
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg border px-3 py-2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" class="stroke-current fill-none"><circle cx="12" cy="12" r="8"/></svg>
+                  Link/Action
+                </a>
+                <button class="rounded-lg bg-black text-white px-3 py-2">Primary</button>
+              </div>
+            </div>
+
+            <!-- NONE (lock original colors for branding/graphics) -->
+            <div class="card forced-color-adjust-none">
+              <h3 class="font-semibold">NONE (khóa màu gốc)</h3>
+              <p class="text-sm text-gray-700">Branding/đồ họa giữ nguyên màu kể cả khi HC bật (cân nhắc tính tương phản!).</p>
+              <div class="mt-3 flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-sky-500 px-3 py-2 text-white">
+                  <svg width="20" height="20" viewBox="0 0 24 24" class="fill-current"><path d="M5 12h14M12 5v14"/></svg>
+                  Badge gradient
+                </span>
+                <button class="rounded-lg bg-[color:var(--brand)] text-white px-3 py-2">Brand CTA</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Forced Colors: chọn <code>auto</code> cho thành phần tương tác, <code>none</code> cho đồ họa trang trí/brand (nếu đã kiểm tra tương phản).</p>
+      </div>
+    </footer>
+  </body>
+</html>

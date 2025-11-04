@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Effects, Blend & Filters Lab — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-display: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial;
+        --color-brand-500: oklch(0.67 0.19 252);
+      }
+      @layer utilities {
+        .card { @apply rounded-2xl bg-white/10 shadow-lg p-6 border border-white/20; }
+        .chip { @apply inline-flex items-center rounded-full bg-black/50 text-white/90 px-2 py-0.5 text-xs; }
+        .headline { @apply font-[var(--font-display)] text-white text-4xl md:text-6xl; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh bg-gray-900 text-gray-100 antialiased">
+    <!-- Background photo with blend layers -->
+    <header class="relative min-h-[60svh] overflow-hidden">
+      <img
+        class="absolute inset-0 h-full w-full object-cover"
+        src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1920&auto=format&fit=crop"
+        alt="Background"
+      />
+
+      <!-- Color overlays using background-blend and mix-blend -->
+      <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-600/30 via-violet-600/30 to-sky-600/30 bg-blend-overlay"></div>
+      <div class="absolute inset-0 pointer-events-none mix-blend-multiply bg-[radial-gradient(60%_60%_at_30%_30%,rgba(0,0,0,.35),transparent)]"></div>
+      <div class="absolute inset-y-0 right-0 w-1/2 pointer-events-none mix-blend-[plus-lighter] bg-[radial-gradient(40%_60%_at_70%_40%,rgba(255,255,255,.35),transparent)]"></div>
+
+      <!-- Glassmorphism Card -->
+      <div class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 grid place-items-center">
+        <article class="card backdrop-blur backdrop-brightness-125">
+          <h1 class="headline [text-shadow:0_1px_2px_rgb(0_0_0/.15)]">
+            7) Effects, Blend & Filters Lab
+          </h1>
+          <p class="mt-3 text-white/90">
+            Card theo phong cách <em>glassmorphism</em>: <code>backdrop-blur</code> +
+            <code>backdrop-brightness-125</code> + <code>shadow-lg</code>.
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="chip">shadow</span>
+            <span class="chip">shadow-lg</span>
+            <span class="chip">shadow-[0_2px_0_#0003]</span>
+            <span class="chip">[text-shadow:0_1px_2px_rgb(0_0_0/.15)]</span>
+            <span class="chip">opacity-60</span>
+            <span class="chip">opacity-[.35]</span>
+            <span class="chip">mix-blend-multiply</span>
+            <span class="chip">mix-blend-[plus-lighter]</span>
+            <span class="chip">bg-blend-overlay</span>
+            <span class="chip">backdrop-blur</span>
+            <span class="chip">backdrop-brightness-125</span>
+          </div>
+
+          <!-- Buttons with different shadows/opacity -->
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button class="rounded-lg bg-white/20 px-4 py-2 shadow hover:bg-white/30 transition">Default shadow</button>
+            <button class="rounded-lg bg-white/20 px-4 py-2 shadow-lg hover:bg-white/30 transition">shadow-lg</button>
+            <button class="rounded-lg bg-white/20 px-4 py-2 shadow-[0_2px_0_#0003] hover:bg-white/30 transition">custom shadow</button>
+            <button class="rounded-lg bg-white/20 px-4 py-2 opacity-60 hover:opacity-100 transition">opacity-60</button>
+            <button class="rounded-lg bg-white/20 px-4 py-2 opacity-[.35] hover:opacity-100 transition">opacity-[.35]</button>
+          </div>
+        </article>
+      </div>
+    </header>
+
+    <main class="py-12">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- FILTERS Playground -->
+        <section id="filters" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Bộ lọc (filter)</h2>
+            <p class="text-sm text-gray-300">blur • brightness-110 • contrast-125 • grayscale • hue-rotate-15 • invert • saturate-150 • sepia • drop-shadow-md • blur-[3px]</p>
+          </header>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Each tile uses a different filter combo -->
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg blur" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" alt="blur" />
+              <figcaption class="mt-2 text-sm">blur</figcaption>
+            </figure>
+
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg blur-[3px]" src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1200&auto=format&fit=crop" alt="blur-[3px]" />
+              <figcaption class="mt-2 text-sm">blur-[3px]</figcaption>
+            </figure>
+
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg brightness-110 contrast-125 drop-shadow-md" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="brightness contrast drop-shadow" />
+              <figcaption class="mt-2 text-sm">brightness-110 • contrast-125 • drop-shadow-md</figcaption>
+            </figure>
+
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg grayscale" src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=1200&auto=format&fit=crop" alt="grayscale" />
+              <figcaption class="mt-2 text-sm">grayscale</figcaption>
+            </figure>
+
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg hue-rotate-15 saturate-150" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1200&auto=format&fit=crop" alt="hue-rotate saturate" />
+              <figcaption class="mt-2 text-sm">hue-rotate-15 • saturate-150</figcaption>
+            </figure>
+
+            <figure class="relative overflow-hidden rounded-xl bg-black/20 p-4">
+              <img class="h-40 w-full object-cover rounded-lg invert sepia" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?q=80&w=1200&auto=format&fit=crop" alt="invert sepia" />
+              <figcaption class="mt-2 text-sm">invert • sepia</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- MIX & BACKGROUND-BLEND demo on images -->
+        <section id="blend" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Mix-blend & Background-blend</h2>
+            <p class="text-sm text-gray-300">mix-blend-multiply • mix-blend-[plus-lighter] • bg-blend-overlay</p>
+          </header>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="relative overflow-hidden rounded-2xl">
+              <img class="h-56 w-full object-cover" src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=1200&auto=format&fit=crop" alt="base" />
+              <div class="absolute inset-0 mix-blend-multiply bg-gradient-to-tr from-sky-400/60 via-purple-500/50 to-fuchsia-500/60"></div>
+              <div class="absolute inset-0 mix-blend-[plus-lighter] bg-[radial-gradient(60%_60%_at_70%_30%,rgba(255,255,255,.4),transparent)]"></div>
+              <div class="absolute inset-0 grid place-items-center">
+                <span class="chip">mix-blend-multiply + plus-lighter</span>
+              </div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-2xl bg-blend-overlay bg-center bg-cover h-56"
+                 style="background-image:url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1200&auto=format&fit=crop');">
+              <div class="absolute inset-0 bg-slate-900/40"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-500/40 to-sky-500/40"></div>
+              <div class="absolute inset-0 grid place-items-center">
+                <span class="chip">bg-blend-overlay</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="py-10 text-center text-sm text-white/60">
+      <p>Glassmorphism card + toàn bộ hiệu ứng: shadow, text-shadow arbitrary, opacity, mix-blend, bg-blend, filter & backdrop.</p>
+    </footer>
+  </body>
+</html>

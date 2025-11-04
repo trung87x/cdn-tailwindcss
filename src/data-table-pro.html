@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Table Pro — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto, Helvetica, Arial;
+        --color-brand-600: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .chip { @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">8) Data Table Pro (Bảng nâng cao)</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#sticky" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Caption + cột cố định</a>
+          <a href="#spacing" class="text-gray-600 hover:text-[color:var(--color-brand-600)]">Spacing &amp; layout</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- 1) TABLE: CAPTION + STICKY COL + H-SCROLL -->
+        <section id="sticky" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Bảng có caption, cột cố định, cuộn ngang</h2>
+            <p class="text-sm text-gray-600">Dùng <code>border-separate</code> + <code>border-spacing-x-4</code> • cột đầu <code>sticky left-0</code> • cuộn ngang <code>overflow-x-auto</code>.</p>
+          </header>
+
+          <div class="card overflow-x-auto">
+            <table class="min-w-[72rem] w-full text-sm border-separate border-spacing-y-2 border-spacing-x-4">
+              <caption class="caption-top text-left text-gray-500 pb-2">
+                <span class="font-medium">Báo cáo doanh số Q3</span> — tổng hợp theo nhóm sản phẩm (caption-top)
+              </caption>
+
+              <thead>
+                <tr class="text-left text-gray-600">
+                  <th class="bg-gray-50 sticky left-0 z-10 px-3 py-2 rounded-l-md">Nhóm</th>
+                  <th class="px-3 py-2">Mã</th>
+                  <th class="px-3 py-2">Đơn hàng</th>
+                  <th class="px-3 py-2">Doanh thu</th>
+                  <th class="px-3 py-2">Tỷ lệ hoàn</th>
+                  <th class="px-3 py-2">Hài lòng</th>
+                  <th class="px-3 py-2">Ghi chú</th>
+                  <th class="px-3 py-2 rounded-r-md">Hành động</th>
+                </tr>
+              </thead>
+
+              <tbody class="[&>tr>td]:bg-white [&>tr>td]:rounded-md [&>tr>td]:shadow">
+                <!-- Row 1 -->
+                <tr>
+                  <td class="sticky left-0 z-10 px-3 py-2 font-medium bg-white">Âm thanh</td>
+                  <td class="px-3 py-2">AUD</td>
+                  <td class="px-3 py-2">1 204</td>
+                  <td class="px-3 py-2">12 890 000 000</td>
+                  <td class="px-3 py-2">1.2%</td>
+                  <td class="px-3 py-2">4.6/5</td>
+                  <td class="px-3 py-2">Tai nghe mới ra</td>
+                  <td class="px-3 py-2"><a href="#" class="text-[color:var(--color-brand-600)]">Xem</a></td>
+                </tr>
+                <!-- Row 2 -->
+                <tr>
+                  <td class="sticky left-0 z-10 px-3 py-2 font-medium bg-white">Phụ kiện</td>
+                  <td class="px-3 py-2">ACC</td>
+                  <td class="px-3 py-2">982</td>
+                  <td class="px-3 py-2">6 340 000 000</td>
+                  <td class="px-3 py-2">1.8%</td>
+                  <td class="px-3 py-2">4.2/5</td>
+                  <td class="px-3 py-2">Bộ sạc nhanh</td>
+                  <td class="px-3 py-2"><a href="#" class="text-[color:var(--color-brand-600)]">Xem</a></td>
+                </tr>
+                <!-- Row 3 -->
+                <tr>
+                  <td class="sticky left-0 z-10 px-3 py-2 font-medium bg-white">Bàn phím</td>
+                  <td class="px-3 py-2">KB</td>
+                  <td class="px-3 py-2">655</td>
+                  <td class="px-3 py-2">5 120 000 000</td>
+                  <td class="px-3 py-2">0.9%</td>
+                  <td class="px-3 py-2">4.7/5</td>
+                  <td class="px-3 py-2">Mẫu 75% hot</td>
+                  <td class="px-3 py-2"><a href="#" class="text-[color:var(--color-brand-600)]">Xem</a></td>
+                </tr>
+                <!-- Row 4 -->
+                <tr>
+                  <td class="sticky left-0 z-10 px-3 py-2 font-medium bg-white">Chuột</td>
+                  <td class="px-3 py-2">MS</td>
+                  <td class="px-3 py-2">1 412</td>
+                  <td class="px-3 py-2">4 900 000 000</td>
+                  <td class="px-3 py-2">1.1%</td>
+                  <td class="px-3 py-2">4.5/5</td>
+                  <td class="px-3 py-2">Dòng mới 8K</td>
+                  <td class="px-3 py-2"><a href="#" class="text-[color:var(--color-brand-600)]">Xem</a></td>
+                </tr>
+              </tbody>
+
+              <caption class="caption-bottom text-left text-gray-500 pt-2">
+                Ghi chú: số liệu đã làm tròn (caption-bottom)
+              </caption>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2) LAYOUT & SPACING VARIANTS -->
+        <section id="spacing" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Spacing &amp; layout chế độ bảng</h2>
+            <p class="text-sm text-gray-600">So sánh <code>border-collapse</code> vs <code>border-separate</code>, <code>border-spacing-*</code>, và <code>table-auto</code> vs <code>table-fixed</code>.</p>
+          </header>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <!-- COLLAPSE + TABLE-AUTO -->
+            <div class="card overflow-x-auto">
+              <p class="mb-2 text-sm text-gray-600">
+                <span class="chip">border-collapse</span>
+                <span class="chip">table-auto</span>
+              </p>
+              <table class="min-w-[40rem] w-full text-sm border-collapse table-auto">
+                <thead>
+                  <tr class="bg-gray-50 text-left text-gray-600">
+                    <th class="px-3 py-2 border border-gray-200">Cột</th>
+                    <th class="px-3 py-2 border border-gray-200">Rộng tự nhiên</th>
+                    <th class="px-3 py-2 border border-gray-200">Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="px-3 py-2 border border-gray-200">A</td>
+                    <td class="px-3 py-2 border border-gray-200">Nội dung ngắn</td>
+                    <td class="px-3 py-2 border border-gray-200">Tự đo kích thước theo nội dung.</td>
+                  </tr>
+                  <tr class="bg-gray-50/50">
+                    <td class="px-3 py-2 border border-gray-200">B</td>
+                    <td class="px-3 py-2 border border-gray-200">Nội dung dài hơn nhiều để thấy hiệu ứng co giãn theo ô.</td>
+                    <td class="px-3 py-2 border border-gray-200">Giới hạn bởi bề rộng bảng.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- SEPARATE + SPACING + TABLE-FIXED -->
+            <div class="card overflow-x-auto">
+              <p class="mb-2 text-sm text-gray-600 space-x-2">
+                <span class="chip">border-separate</span>
+                <span class="chip">border-spacing-2</span>
+                <span class="chip">border-spacing-x-4</span>
+                <span class="chip">border-spacing-[0_8px]</span>
+                <span class="chip">table-fixed</span>
+              </p>
+              <table class="min-w-[40rem] w-full text-sm border-separate border-spacing-2 border-spacing-x-4 border-spacing-[0_8px] table-fixed">
+                <thead>
+                  <tr class="text-left text-gray-600">
+                    <th class="px-3 py-2 bg-gray-50 rounded-l">Tên</th>
+                    <th class="px-3 py-2 bg-gray-50">Email</th>
+                    <th class="px-3 py-2 bg-gray-50 rounded-r">Ghi chú (ellipsis)</th>
+                  </tr>
+                </thead>
+                <tbody class="[&>tr>td]:bg-white [&>tr>td]:rounded [&>tr>td]:shadow-sm">
+                  <tr>
+                    <td class="px-3 py-2">Trần Mai</td>
+                    <td class="px-3 py-2">mai.tran@example.com</td>
+                    <td class="px-3 py-2 w-[50%] truncate">Mô tả rất rất dài về người dùng để thấy tác dụng của table-fixed + truncate…</td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2">Nguyễn An</td>
+                    <td class="px-3 py-2">an.nguyen@example.com</td>
+                    <td class="px-3 py-2 w-[50%] text-ellipsis overflow-hidden whitespace-nowrap">Một ghi chú khác cũng dài không kém để test text-ellipsis</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>Bảng nâng cao: caption-top/bottom, cột sticky, cuộn ngang, border-collapse/separate, border-spacing-x/y, và table-auto vs table-fixed.</p>
+      </div>
+    </footer>
+  </body>
+</html>

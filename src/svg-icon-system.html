@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG & Icon System — Tailwind CDN</title>
+
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --brand: oklch(0.63 0.19 252);
+      }
+      @layer utilities {
+        .card { @apply rounded-xl bg-white shadow p-6; }
+        .chip { @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600; }
+        .icon-24 { width: 24px; height: 24px; }
+        .icon-32 { width: 32px; height: 32px; }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <h1 class="text-xl md:text-2xl font-bold">12) SVG &amp; Icon System</h1>
+        <nav class="hidden sm:flex gap-3 text-sm">
+          <a href="#current" class="text-gray-600 hover:text-black">currentColor</a>
+          <a href="#palette" class="text-gray-600 hover:text-black">Fill/Stroke</a>
+          <a href="#library" class="text-gray-600 hover:text-black">Icon library</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+
+        <!-- 1) CURRENTCOLOR DEMO -->
+        <section id="current" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">currentColor điều khiển icon</h2>
+            <p class="text-sm text-gray-600">
+              Icon nhận màu từ text cha với <code>fill-current</code>/<code>stroke-current</code>. Đổi trạng thái bằng lớp màu chữ.
+            </p>
+          </header>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- Fill icon following currentColor -->
+            <div class="card group text-gray-700 hover:text-black">
+              <p class="text-sm text-gray-600 mb-2">Fill icon: <code>fill-current</code></p>
+              <div class="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" class="icon-32 fill-current">
+                  <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 14h-2v-2h2v2Zm0-4h-2V6h2v6Z"/>
+                </svg>
+                <span class="text-sm">Kế thừa <span class="chip">text-gray-700</span> → hover <span class="chip">text-black</span></span>
+              </div>
+            </div>
+
+            <!-- Stroke icon following currentColor -->
+            <div class="card group text-blue-700 hover:text-blue-900">
+              <p class="text-sm text-gray-600 mb-2">Stroke icon: <code>stroke-current</code> + <code>stroke-2</code></p>
+              <div class="flex items-center gap-3">
+                <svg viewBox="0 0 24 24" class="icon-32 stroke-current stroke-2 fill-none">
+                  <circle cx="12" cy="12" r="8" />
+                  <path d="M8 12h8M12 8v8" stroke-linecap="round"/>
+                </svg>
+                <span class="text-sm">Kế thừa màu chữ xanh</span>
+              </div>
+            </div>
+
+            <!-- Brand via CSS var -->
+            <div class="card text-[color:var(--brand)]">
+              <p class="text-sm text-gray-600 mb-2">Brand: <code>fill-[var(--brand)]</code> / <code>stroke-[color:var(--brand)]</code></p>
+              <div class="flex items-center gap-4">
+                <svg viewBox="0 0 24 24" class="icon-32 fill-[var(--brand)]">
+                  <path d="M4 12 12 4l8 8-8 8-8-8Z"/>
+                </svg>
+                <svg viewBox="0 0 24 24" class="icon-32 stroke-[color:var(--brand)] stroke-[1.5] fill-none">
+                  <path d="M4 12 12 4l8 8-8 8-8-8Z" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2) PALETTE & STROKE/FILL CLASSES -->
+        <section id="palette" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Fill/Stroke utilities</h2>
+            <p class="text-sm text-gray-600">Checklist: <code>fill-current</code>, <code>fill-gray-500</code>, <code>fill-[var(--brand)]</code>, <code>stroke-current</code>, <code>stroke-blue-600</code>, <code>stroke-2</code>, <code>stroke-[1.5]</code></p>
+          </header>
+
+          <div class="card grid sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-start">
+            <div class="space-y-2">
+              <div class="chip">fill-gray-500</div>
+              <svg viewBox="0 0 24 24" class="icon-32 fill-gray-500">
+                <path d="M12 3 2 12h4v7h5v-5h2v5h5v-7h4L12 3z"/>
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <div class="chip">fill-[var(--brand)]</div>
+              <svg viewBox="0 0 24 24" class="icon-32 fill-[var(--brand)]">
+                <circle cx="12" cy="12" r="9"/>
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <div class="chip">stroke-blue-600 • stroke-2</div>
+              <svg viewBox="0 0 24 24" class="icon-32 stroke-blue-600 stroke-2 fill-none">
+                <rect x="5" y="5" width="14" height="14" rx="2"/>
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <div class="chip">stroke-current • stroke-[1.5]</div>
+              <div class="text-gray-700">
+                <svg viewBox="0 0 24 24" class="icon-32 stroke-current stroke-[1.5] fill-none">
+                  <path d="M6 12h12M12 6v12" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3) MINI ICON LIBRARY -->
+        <section id="library" class="space-y-4">
+          <header>
+            <h2 class="text-2xl font-bold">Thư viện icon (currentColor theo state)</h2>
+            <p class="text-sm text-gray-600">Icon ở dưới đổi màu theo state: <em>default</em>, <em>hover</em>, <em>active</em>, <em>disabled</em>.</p>
+          </header>
+
+          <div class="card grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Item -->
+            <button class="group flex items-center gap-3 rounded-lg border px-3 py-2 text-gray-700 hover:text-black active:text-blue-700 disabled:text-gray-300">
+              <svg viewBox="0 0 24 24" class="icon-24 stroke-current stroke-2 fill-none">
+                <path d="M5 12h14M12 5v14" stroke-linecap="round"/>
+              </svg>
+              <span class="text-sm">Add</span>
+            </button>
+
+            <button class="group flex items-center gap-3 rounded-lg border px-3 py-2 text-gray-700 hover:text-black active:text-blue-700 disabled:text-gray-300">
+              <svg viewBox="0 0 24 24" class="icon-24 fill-current">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 11h-6v-2h6V7l5 5-5 5v-4Z"/>
+              </svg>
+              <span class="text-sm">Arrow</span>
+            </button>
+
+            <button class="group flex items-center gap-3 rounded-lg border px-3 py-2 text-gray-700 hover:text-black active:text-blue-700 disabled:text-gray-300">
+              <svg viewBox="0 0 24 24" class="icon-24 stroke-current stroke-[1.5] fill-none">
+                <circle cx="12" cy="12" r="7"/>
+                <path d="M10 12l2 2 3-3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="text-sm">Check</span>
+            </button>
+
+            <button class="group flex items-center gap-3 rounded-lg border px-3 py-2 text-gray-700 hover:text-black active:text-blue-700 disabled:text-gray-300" disabled>
+              <svg viewBox="0 0 24 24" class="icon-24 fill-current">
+                <path d="M12 21a1 1 0 0 1-1-1v-8a1 1 0 1 1 2 0v8a1 1 0 0 1-1 1Zm0-12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/>
+              </svg>
+              <span class="text-sm">Info (disabled)</span>
+            </button>
+          </div>
+
+          <p class="text-xs text-gray-500 mt-2">
+            Mẹo: gắn lớp màu vào cha (nút, link, label) để icon SVG dùng <code>currentColor</code> tự đổi màu theo state <code>:hover</code>, <code>:active</code>, <code>:disabled</code>.
+          </p>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="border-t bg-white py-6">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+        <p>SVG &amp; Icon System — điều khiển <code>fill</code>/<code>stroke</code> bằng utility, kế thừa <code>currentColor</code>, và biến thể trạng thái.</p>
+      </div>
+    </footer>
+  </body>
+</html>
