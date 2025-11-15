@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
@@ -9,14 +9,15 @@
 
     <style type="text/tailwindcss">
       @theme {
-        --font-sans: ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        --font-sans:
+          ui-sans-serif, system-ui, "Inter", "Segoe UI", Roboto, Helvetica,
+          Arial, "Apple Color Emoji", "Segoe UI Emoji";
         --color-brand: oklch(0.63 0.19 252);
         --radius-xl: 1rem;
       }
       @layer utilities {
         .card {
-          @apply rounded-xl bg-white shadow p-4;
+          @apply rounded-xl bg-white p-4 shadow;
         }
         .chip {
           @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600;
@@ -27,29 +28,54 @@
 
   <!-- Grid areas layout: header | main | footer (footer "sticky" by grid rows) -->
   <body
-    class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-50 text-gray-800 font-sans antialiased"
+    class="grid min-h-dvh grid-rows-[auto_1fr_auto] bg-gray-50 font-sans text-gray-800 antialiased"
   >
     <header
-      class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b"
+      class="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60"
     >
       <div
-        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+        class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
       >
-        <h1 class="text-xl md:text-2xl font-bold">Flexbox & Grid Catalog</h1>
-        <nav class="hidden sm:flex gap-4">
-          <a href="#flex" class="text-gray-600 hover:text-brand">Flexbox</a>
-          <a href="#grid-gallery" class="text-gray-600 hover:text-brand"
+        <h1 class="text-xl font-bold md:text-2xl">Flexbox & Grid Catalog</h1>
+        <nav class="hidden gap-4 sm:flex">
+          <a href="#flex" class="hover:text-brand text-gray-600">Flexbox</a>
+          <a href="#grid-gallery" class="hover:text-brand text-gray-600"
             >Grid Gallery</a
           >
-          <a href="#align" class="text-gray-600 hover:text-brand"
+          <a href="#align" class="hover:text-brand text-gray-600"
             >Justify/Align/Place</a
           >
         </nav>
       </div>
     </header>
 
+    <header
+      class="border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60"
+    >
+      <div
+        class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+      >
+        <!-- Khối trái -->
+        <div class="flex items-center gap-2">Logo</div>
+
+        <!-- Khối giữa -->
+        <div class="flex flex-1 justify-center">
+          <nav class="flex gap-6">
+            <a href="#" class="hover:text-brand">Trang chủ</a>
+            <a href="#" class="hover:text-brand">Sản phẩm</a>
+            <a href="#" class="hover:text-brand">Liên hệ</a>
+          </nav>
+        </div>
+
+        <!-- Khối phải -->
+        <div class="flex items-center gap-4">
+          <button>Login</button>
+        </div>
+      </div>
+    </header>
+
     <main id="main" class="py-8">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+      <div class="mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
         <!-- 1) FLEXBOX CATALOG -->
         <section id="flex">
           <header class="mb-6">
@@ -63,7 +89,7 @@
           <div class="card">
             <div class="flex items-center justify-between">
               <h3 class="font-semibold">basis / direction / wrap</h3>
-              <div class="hidden md:flex gap-2">
+              <div class="hidden gap-2 md:flex">
                 <span class="chip">flex-row</span>
                 <span class="chip">flex-wrap</span>
                 <span class="chip">basis-1/2</span>
@@ -72,18 +98,18 @@
             </div>
             <div class="mt-4 flex flex-row flex-wrap gap-4">
               <div
-                class="basis-1/2 min-w-[16rem] grow rounded-lg bg-indigo-50 p-4"
+                class="min-w-[16rem] grow basis-1/2 rounded-lg bg-indigo-50 p-4"
               >
                 <p class="text-sm font-medium">Box A</p>
                 <p class="text-xs text-gray-600">basis-1/2 + grow (co giãn)</p>
               </div>
-              <div class="basis-[320px] shrink-0 rounded-lg bg-purple-50 p-4">
+              <div class="shrink-0 basis-[320px] rounded-lg bg-purple-50 p-4">
                 <p class="text-sm font-medium">Box B</p>
                 <p class="text-xs text-gray-600">
                   basis-[320px] + shrink-0 (không co lại)
                 </p>
               </div>
-              <div class="basis-1/2 min-w-[12rem] rounded-lg bg-emerald-50 p-4">
+              <div class="min-w-[12rem] basis-1/2 rounded-lg bg-emerald-50 p-4">
                 <p class="text-sm font-medium">Box C</p>
                 <p class="text-xs text-gray-600">basis-1/2 (tỉ lệ nền)</p>
               </div>
@@ -96,7 +122,7 @@
               <h3 class="font-semibold">
                 flex shorthand / grow / shrink / order
               </h3>
-              <div class="hidden md:flex gap-2">
+              <div class="hidden gap-2 md:flex">
                 <span class="chip">flex-1</span>
                 <span class="chip">flex-[2_2_0%]</span>
                 <span class="chip">grow</span>
@@ -106,15 +132,15 @@
               </div>
             </div>
 
-            <div class="mt-4 flex flex-col md:flex-row gap-4">
-              <div class="flex-1 order-2 md:order-1 rounded-lg bg-amber-50 p-4">
+            <div class="mt-4 flex flex-col gap-4 md:flex-row">
+              <div class="order-2 flex-1 rounded-lg bg-amber-50 p-4 md:order-1">
                 <p class="text-sm font-medium">Item 1 (flex-1)</p>
                 <p class="text-xs text-gray-600">
                   Lấy phần còn lại, chuyển order theo breakpoint.
                 </p>
               </div>
               <div
-                class="flex-[2_2_0%] order-[999] md:order-2 rounded-lg bg-rose-50 p-4"
+                class="order-[999] flex-[2_2_0%] rounded-lg bg-rose-50 p-4 md:order-2"
               >
                 <p class="text-sm font-medium">Item 2 (flex-[2_2_0%])</p>
                 <p class="text-xs text-gray-600">
@@ -122,7 +148,7 @@
                 </p>
               </div>
               <div
-                class="shrink-0 order-1 md:order-3 rounded-lg bg-sky-50 p-4 min-w-40"
+                class="order-1 min-w-40 shrink-0 rounded-lg bg-sky-50 p-4 md:order-3"
               >
                 <p class="text-sm font-medium">Item 3 (shrink-0)</p>
                 <p class="text-xs text-gray-600">
@@ -149,7 +175,7 @@
               grid-cols-3 • col-span-2 • col-start-2 col-end-4 • row-span-3
             </p>
 
-            <div class="mt-4 grid grid-cols-3 auto-rows-[10rem] gap-4">
+            <div class="mt-4 grid auto-rows-[10rem] grid-cols-3 gap-4">
               <!-- Featured item spanning -->
               <figure
                 class="relative col-span-2 row-span-2 overflow-hidden rounded-lg"
@@ -160,7 +186,7 @@
                   alt="Featured"
                 />
                 <figcaption
-                  class="absolute inset-x-0 bottom-0 bg-black/40 text-white p-2 text-sm"
+                  class="absolute inset-x-0 bottom-0 bg-black/40 p-2 text-sm text-white"
                 >
                   col-span-2 · row-span-2
                 </figcaption>
@@ -176,7 +202,7 @@
                   alt="Line placed"
                 />
                 <figcaption
-                  class="absolute inset-x-0 bottom-0 bg-black/40 text-white p-2 text-sm"
+                  class="absolute inset-x-0 bottom-0 bg-black/40 p-2 text-sm text-white"
                 >
                   col-start-2 · col-end-4
                 </figcaption>
@@ -217,41 +243,41 @@
             <!-- Horizontal auto-flow grid (scrollable) -->
             <div class="mt-4 overflow-x-auto">
               <div
-                class="grid grid-flow-col auto-cols-fr auto-rows-min gap-x-4 gap-y-2 min-w-[64rem]"
+                class="grid min-w-[64rem] auto-cols-fr grid-flow-col auto-rows-min gap-x-4 gap-y-2"
               >
                 <!-- Repeatable items -->
                 <div
-                  class="h-40 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-40 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">grid-flow-col</span>
                   <p class="text-sm">Item A — auto-cols-fr</p>
                 </div>
                 <div
-                  class="h-28 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-28 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">auto-rows-min</span>
                   <p class="text-sm">Item B</p>
                 </div>
                 <div
-                  class="h-56 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-56 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">gap-x-4</span>
                   <p class="text-sm">Item C</p>
                 </div>
                 <div
-                  class="h-32 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-32 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">gap-y-2</span>
                   <p class="text-sm">Item D</p>
                 </div>
                 <div
-                  class="h-44 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-44 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">auto-cols-fr</span>
                   <p class="text-sm">Item E</p>
                 </div>
                 <div
-                  class="h-24 rounded-lg bg-white shadow p-3 flex flex-col justify-between"
+                  class="flex h-24 flex-col justify-between rounded-lg bg-white p-3 shadow"
                 >
                   <span class="chip">min content</span>
                   <p class="text-sm">Item F</p>
@@ -271,7 +297,7 @@
             </p>
           </header>
 
-          <div class="grid md:grid-cols-2 gap-6">
+          <div class="grid gap-6 md:grid-cols-2">
             <!-- Flex alignment -->
             <div class="card">
               <h3 class="font-semibold">Flex alignment</h3>
@@ -280,7 +306,7 @@
               </p>
 
               <div
-                class="mt-4 h-40 flex flex-wrap content-between justify-center items-center gap-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3"
+                class="mt-4 flex h-40 flex-wrap content-between items-center justify-center gap-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 p-3"
               >
                 <span class="chip self-start">self-start</span>
                 <span class="chip">center</span>
@@ -298,20 +324,20 @@
               </p>
 
               <div
-                class="mt-4 grid grid-cols-3 gap-3 h-40 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3 place-content-center place-items-start"
+                class="mt-4 grid h-40 grid-cols-3 place-content-center place-items-start gap-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 p-3"
               >
                 <div
-                  class="h-10 w-full bg-white rounded shadow flex items-center justify-center text-xs"
+                  class="flex h-10 w-full items-center justify-center rounded bg-white text-xs shadow"
                 >
                   stretch
                 </div>
                 <div
-                  class="h-10 w-auto bg-white rounded shadow px-2 grid place-items-center text-xs justify-self-end"
+                  class="grid h-10 w-auto place-items-center justify-self-end rounded bg-white px-2 text-xs shadow"
                 >
                   self-end
                 </div>
                 <div
-                  class="h-10 w-16 bg-white rounded shadow grid place-items-center text-xs place-self-center"
+                  class="grid h-10 w-16 place-items-center place-self-center rounded bg-white text-xs shadow"
                 >
                   place-self-center
                 </div>
@@ -323,10 +349,8 @@
     </main>
 
     <footer class="border-t bg-white py-6">
-      <div
-        class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500"
-      >
-        <p>
+      <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+        <p class="text-sm text-gray-500">
           Layout tổng thể dùng <code>grid-rows-[auto_1fr_auto]</code> để giữ
           footer ở đáy (sticky-by-layout).
         </p>
